@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Avenir Book";
+  src: url("/fonts/Avenir.ttc") format("truetype");
+  /* You can include additional font properties here like font-weight, font-style, etc. */
+}
+
+body {
+  font-family: "Avenir Book", sans-serif;
+}
+
+.no-scroll-bar::-webkit-scrollbar {
+  width: 0px;
+}
+
+.no-scroll-bar::-webkit-scrollbar-track {
+  background: #b1494900;
+}
+
+.no-scroll-bar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+}
+
+.no-scroll-bar::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-track {
+  background: #b1494900;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

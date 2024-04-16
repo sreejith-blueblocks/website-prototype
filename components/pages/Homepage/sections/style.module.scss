@@ -1,0 +1,18 @@
+// .button {
+//   margin-top: 20px;
+//   padding: 10px;
+//   font-size: 20px;
+//   font-weight: bold;
+//   padding-left: 36px;
+//   padding-right: 36px;
+//   border-width: 4px;
+//   border-style: solid;
+//   border-color: transparent;
+//   border-radius: 20px;
+//   background-image: linear-gradient(to right, #00e0ff80, #243e8680);
+// }
+
+.button {
+  border-image: linear-gradient(to right, #8a2387, #e94057, #f27121);
+  border-image-slice: 1;
+}
