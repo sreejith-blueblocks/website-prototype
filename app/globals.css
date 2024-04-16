@@ -45,3 +45,13 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.animate-delayed {
+  animation: activateJustifyCenter 0.3s linear forwards 0.3s;
+}
+
+@keyframes activateJustifyCenter {
+  to {
+    justify-content: center;
+  }
+}
