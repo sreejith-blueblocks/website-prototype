@@ -6,7 +6,6 @@ import React from "react";
 import Testimonials from "./sections/testimonials";
 import CtaSection from "./sections/CTA";
 import FooterSection from "../../footer";
-import ServiceTest from "./sections/serviceTest";
 
 const Homepage = () => {
   return (

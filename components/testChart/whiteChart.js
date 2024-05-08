@@ -124,7 +124,7 @@ const WhiteChart = ({ setCurrentPrice, markers }) => {
         </p>
       </div>
       <div
-        style={{ width: "100%", height: "90%" }}
+        style={{ width: "100%", height: "100%" }}
         className="rounded-lg max-h-[550px]"
         ref={chartContainerRef}
       />

@@ -1,19 +1,17 @@
 import React from "react";
-import Statistics from "./(components)/Statistics";
-import ActiveBiddingStatus from "./(components)/ActiveBiddingStatus";
-import PervBiddingStatus from "./(components)/PervBiddingStatus";
 import { BsSearch } from "react-icons/bs";
+import TradeChart from "./(components)/TradeChart";
 
 const page = () => {
   return (
-    <div className="w-[75%] h-screen overflow-y-scroll bg-[#E8E8E8] px-10">
+    <div className="w-[75%] h-screen overflow-y-scroll bg-[#e8e8e8] px-10">
       <div className="flex items-center justify-between my-[20px]">
         <div className="max-w-[300px] w-full">
           <div className="relative">
             <input
               type="text"
               placeholder="Search..."
-              className="w-full py-1 px-4 border border-gray-300 rounded-lg focus:outline-none  focus:border-transparent"
+              className="w-full pr-8 py-1 px-4 border shadow-2xl border-gray-300 rounded-lg focus:outline-none  focus:border-transparent"
             />
             <div className="absolute z-[1000] inset-y-0 right-0 flex items-center pr-3 cursor-pointer">
               <BsSearch
@@ -28,9 +26,7 @@ const page = () => {
         </div>
       </div>
 
-      <Statistics />
-      <ActiveBiddingStatus />
-      <PervBiddingStatus />
+      <TradeChart />
     </div>
   );
 };

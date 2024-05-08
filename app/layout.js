@@ -1,7 +1,4 @@
-import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar";
-import FooterSection from "@/components/footer";
 
 export const metadata = {
   title: "Blue Blocks",

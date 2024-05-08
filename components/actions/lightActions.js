@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6";
 
 const LightActions = ({
@@ -15,7 +15,7 @@ const LightActions = ({
   amount,
 }) => {
   return (
-    <div className="w-[300px] flex flex-col cursor-pointer text-[#333333] px-4">
+    <div className="w-[300px] h-full flex flex-col cursor-pointer text-[#333333] px-4">
       <div>
         <h1 className="text-[17px]">Wallet</h1>
         <div className="bg-[#dddddd] p-2 rounded-lg flex flex-row items-center justify-between">

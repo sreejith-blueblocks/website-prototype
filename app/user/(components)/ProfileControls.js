@@ -16,8 +16,8 @@ const ProfileControls = () => {
       </div>
       <div className="flex flex-row items-center justify-center gap-x-3">
         <div>
-          <Link href={"user"} className="text-[15px] font-bold">
-            Admin
+          <Link href="/admin" className="text-[15px] font-bold">
+            User
           </Link>
           <p className="text-[10px] font-medium text-[#C2C2C2]">View Profile</p>
         </div>

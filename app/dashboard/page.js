@@ -1,9 +1,4 @@
-import AreaChart from "@/components/AreaChart/areaChart";
-import CandlestickChart from "@/components/candlestickChart/candlestickChart";
-import TestChart from "@/components/testChart/testChart";
 import React from "react";
-import Actions from "@/components/actions/actions";
-import TestChartTwo from "@/components/testChart/testChart2";
 import MainContainer from "@/components/mainContainer/mainContainer";
 
 const Dashboard = () => {

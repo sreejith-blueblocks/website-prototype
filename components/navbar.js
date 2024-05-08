@@ -64,7 +64,7 @@ const Navbar = () => {
             </a>
           </li>
           <li>
-            <Link href="/dashboardTwo" className="hover:text-gray-300">
+            <Link href="/admin" className="hover:text-gray-300">
               Dashboard
             </Link>
           </li>

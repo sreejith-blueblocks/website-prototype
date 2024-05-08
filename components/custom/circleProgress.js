@@ -4,10 +4,12 @@ import React, { useEffect, useState } from "react";
 
 const CircleProgress = ({ color, value }) => {
   const [progressValue, setProgressValue] = useState(0);
+  const [showData, setShowData] = useState(false);
   useEffect(() => {
     const timer = setInterval(() => {
       if (progressValue < value) {
         setProgressValue((prevCount) => prevCount + 1);
+        setShowData(true);
       }
     }, 30);
 
@@ -26,6 +28,7 @@ const CircleProgress = ({ color, value }) => {
         percent={progressValue}
         strokeColor={conicColors}
         size={45}
+        showInfo={progressValue}
       />
     </div>
   );

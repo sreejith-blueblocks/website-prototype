@@ -1,11 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import Actions from "../actions/actions";
 import WhiteChart from "../testChart/whiteChart";
 import LightActions from "../actions/lightActions";
-import MainContainer from "../mainContainer/mainContainer";
 import MoreAssets from "../moreAssets/MoreAssets";
-import TestChart from "../testChart/testChart";
 
 const MainContainerTwo = () => {
   const [wallet, setWallet] = useState(10000);

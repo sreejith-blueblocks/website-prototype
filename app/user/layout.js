@@ -1,6 +1,7 @@
 "use client";
-import RightPannel from "@/components/AdminLayouts/RightPannel";
-import Sidebar from "@/components/AdminLayouts/sidebar";
+import UserRightPannel from "@/components/UserLayouts/userRightPannel";
+
+import UserSidebar from "@/components/UserLayouts/userSidebar";
 import { useState } from "react";
 import React from "react";
 
@@ -13,10 +14,13 @@ const layout = ({ children }) => {
   return (
     <div className="w-full max-w-[1600px]">
       <div className="w-full  h-screen flex flex-row">
-        <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+        <UserSidebar
+          isSidebarOpen={isSidebarOpen}
+          toggleSidebar={toggleSidebar}
+        />
         <div className="flex flex-row flex-1 transition-all duration-300 relative">
           {children}
-          <RightPannel />
+          <UserRightPannel />
         </div>
       </div>
     </div>

@@ -28,7 +28,7 @@ const FeedbackSections = () => {
       </div>
       <div className="my-[10px] bg-[#EDEFFC] p-[15px] rounded-xl">
         {datas.map((data) => (
-          <div className="flex flex-row justify-between items-center gap-3 my-5">
+          <div key={data.id} className="flex flex-row justify-between items-center gap-3 my-5">
             <div className="w-[35px] h-[35px] rounded-full bg-slate-500 "></div>
             <div className="flex-1">
               <p className="text-[16px] font-bold">{data.name}</p>
