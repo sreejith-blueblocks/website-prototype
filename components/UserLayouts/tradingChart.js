@@ -198,7 +198,7 @@ const TradingChart = () => {
       {showPortfolio && (
         <div className="absolute shadow-lg top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[999] w-[60%] h-[60%] bg-[#fafafa] flex flex-col items-center p-2 rounded-xl">
           <div className="relative w-full text-center">
-            <h1 className="text-[20px] font-semibold ">Porolio</h1>
+            <h1 className="text-[20px] font-semibold ">Portfolio</h1>
             <button
               onClick={() => {
                 setShowPortfolio(false);

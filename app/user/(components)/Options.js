@@ -195,44 +195,8 @@ const Options = ({
           </div>
         </div>
       </div>
-      <div>
-        <h1 className="text-[17px] mt-4">P&L</h1>
-        <p
-          className={`text-[25px] text-center bg-[#dddddd] px-2 py-2 rounded-lg flex flex-row items-center justify-start ${
-            percentageGainOrLoss < 0
-              ? "text-red-700"
-              : percentageGainOrLoss > 0
-              ? "text-green-700"
-              : ""
-          }`}
-        >
-          {percentageGainOrLoss && (
-            <span className="flex items-center gap-x-2">
-              {percentageGainOrLoss < 0 ? (
-                <FaArrowTrendDown className="text-[18px]" />
-              ) : (
-                <FaArrowTrendUp className="text-[18px]" />
-              )}{" "}
-              {profitLoss.toFixed()}
-            </span>
-          )}
-          <span className="text-[25px]">%</span>
 
-          <span
-            className={` text-center text-[18px] ${
-              percentageGainOrLoss < 0
-                ? "text-red-700"
-                : percentageGainOrLoss > 0
-                ? "text-green-700"
-                : ""
-            }`}
-          >
-            {" "}
-            {pl !== 0 && " (" + "$" + pl.toFixed(2) + ")"}
-          </span>
-        </p>
-      </div>
-      <div className="flex flex-row gap-4">
+      <div className="flex flex-row gap-4 mt-2">
         <button
           className="w-full bg-green-500 p-2 rounded-lg my-2"
           onClick={() => {

@@ -5,7 +5,7 @@ import UserSidebar from "@/components/UserLayouts/userSidebar";
 import { useState } from "react";
 import React from "react";
 
-const layout = ({ children }) => {
+const Layout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const toggleSidebar = () => {
@@ -27,4 +27,4 @@ const layout = ({ children }) => {
   );
 };
 
-export default layout;
+export default Layout;

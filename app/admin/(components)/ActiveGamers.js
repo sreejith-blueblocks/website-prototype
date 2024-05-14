@@ -16,7 +16,10 @@ const ActiveGamers = () => {
       </div>
       <div className="w-full bg-[#EDEFFC] p-[15px] rounded-xl my-4">
         {datas.map((data, index) => (
-          <div className="flex flex-row justify-between  items-center my-4">
+          <div
+            key={index}
+            className="flex flex-row justify-between  items-center my-4"
+          >
             <div key={index}>
               <div className="inline-block w-[30px] h-[30px] rounded-full bg-slate-400"></div>
               <div className="inline-block ml-2 text-[11px]">

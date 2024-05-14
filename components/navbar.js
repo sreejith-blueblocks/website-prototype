@@ -29,7 +29,7 @@ const Navbar = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -30 }}
       transition={{ duration: 0.1 }}
-      className={`py-4 max-w-[1600px] px-20 w-full fixed top-0 z-10 transition-all duration-300 ${
+      className={`py-4 max-w-[1600px] px-20 w-full fixed top-0 z-[9999] transition-all duration-300 ${
         scrolled ? "bg-gray-800" : "bg-transparent text"
       }`}
     >

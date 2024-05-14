@@ -6,6 +6,7 @@ import React from "react";
 import Testimonials from "./sections/testimonials";
 import CtaSection from "./sections/CTA";
 import FooterSection from "../../footer";
+import WhatWeDo from "./sections/WhatWeDo";
 
 const Homepage = () => {
   return (
@@ -14,7 +15,7 @@ const Homepage = () => {
         <Navbar />
         <HeroSection />
         <AboutUsSection />
-        <ServiceSection />
+        <WhatWeDo />
         <Testimonials />
         <CtaSection />
         <FooterSection />
