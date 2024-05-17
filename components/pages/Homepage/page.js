@@ -7,6 +7,7 @@ import Testimonials from "./sections/testimonials";
 import CtaSection from "./sections/CTA";
 import FooterSection from "../../footer";
 import WhatWeDo from "./sections/WhatWeDo";
+const LazyLoadedComponent = React.lazy(() => import("./sections/WhatWeDo"));
 
 const Homepage = () => {
   return (
@@ -15,7 +16,7 @@ const Homepage = () => {
         <Navbar />
         <HeroSection />
         <AboutUsSection />
-        <WhatWeDo />
+        <LazyLoadedComponent />
         <Testimonials />
         <CtaSection />
         <FooterSection />

@@ -18,10 +18,8 @@ const Layout = ({ children }) => {
           isSidebarOpen={isSidebarOpen}
           toggleSidebar={toggleSidebar}
         />
-        <div className="flex flex-row flex-1 transition-all duration-300 relative">
-          {children}
-          <UserRightPannel />
-        </div>
+
+        {children}
       </div>
     </div>
   );

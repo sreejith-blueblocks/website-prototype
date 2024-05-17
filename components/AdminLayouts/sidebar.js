@@ -8,6 +8,7 @@ import {
 } from "react-icons/md";
 
 import { IoExitOutline } from "react-icons/io5";
+import Link from "next/link";
 const Sidebar = ({ toggleSidebar, isSidebarOpen }) => {
   return (
     <aside
@@ -24,7 +25,8 @@ const Sidebar = ({ toggleSidebar, isSidebarOpen }) => {
         >{`${isSidebarOpen ? "LOGO" : "BB"}`}</p>
       </div>
       <div className="mt-10">
-        <div
+        <Link
+          href={"/admin"}
           className={`menuItem flex items-center hover:bg-[#E5E5E5] hover:text-[#5067EB] hover:font-bold hover:border-r-[6px] border-[#5067EB] my-2 px-4  ${
             isSidebarOpen ? "" : "justify-center"
           }`}
@@ -33,16 +35,17 @@ const Sidebar = ({ toggleSidebar, isSidebarOpen }) => {
             <div>
               <MdDashboard className="text-2xl mr-2" />
             </div>
-            <p
+            <div
               className={`${
                 isSidebarOpen ? "block" : "hidden"
               } overflow-hidden whitespace-nowrap text-[16px] font-medium`}
             >
               Dashboard
-            </p>
+            </div>
           </div>
-        </div>
-        <div
+        </Link>
+        <Link
+          href={"/admin/betgame"}
           className={`menuItem flex items-center hover:bg-[#E5E5E5] hover:text-[#5067EB] hover:font-bold hover:border-r-[6px] border-[#5067EB]  my-2 px-4  cursor-pointer ${
             isSidebarOpen ? "" : "justify-center"
           }`}
@@ -51,15 +54,15 @@ const Sidebar = ({ toggleSidebar, isSidebarOpen }) => {
             <div>
               <MdWork className="text-2xl mr-2" />
             </div>
-            <p
+            <div
               className={`${
                 isSidebarOpen ? "block" : "hidden"
               } overflow-hidden whitespace-nowrap text-[16px] font-medium`}
             >
               Bid Management
-            </p>
+            </div>
           </div>
-        </div>
+        </Link>
         <div
           className={`menuItem flex items-center hover:bg-[#E5E5E5] hover:text-[#5067EB] hover:font-bold hover:border-r-[6px] border-[#5067EB]  my-2 px-4  cursor-pointer ${
             isSidebarOpen ? "" : "justify-center"

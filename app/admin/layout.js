@@ -14,10 +14,8 @@ const Layout = ({ children }) => {
     <div className="w-full max-w-[1600px]">
       <div className="w-full  h-screen flex flex-row">
         <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-        <div className="flex flex-row flex-1 transition-all duration-300 relative">
-          {children}
-          <RightPannel />
-        </div>
+
+        {children}
       </div>
     </div>
   );

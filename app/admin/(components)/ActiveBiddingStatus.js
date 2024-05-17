@@ -19,7 +19,7 @@ const ActiveBiddingStatus = () => {
   return (
     <div className="my-10">
       <header className="flex flex-row justify-between items-center gap-x-4">
-        <h1 className="text-[24px] font-bold">Active Bidding Status</h1>
+        <h1 className="text-[20px] font-bold">Active Bidding Status</h1>
         <div className="flex-1 h-[1px] bg-[#C2C2C2] "></div>
         <div>
           <IoIosArrowDropleft className="inline-block text-[30px] text-[#5067EB]" />

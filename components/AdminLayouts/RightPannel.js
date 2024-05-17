@@ -6,7 +6,7 @@ import React from "react";
 
 const RightPannel = () => {
   return (
-    <div className="w-[25%] h-screen overflow-y-scroll px-3 ">
+    <div className="max-w-[25%] w-[25%] h-screen overflow-y-scroll px-3 ">
       <ProfileControls />
       <ScheduleCalendar />
       <ActiveGamers />

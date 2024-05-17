@@ -55,7 +55,7 @@ const PervBiddingStatus = () => {
   return (
     <div className="my-10">
       <header className="flex flex-row justify-between items-center">
-        <h1 className="text-[24px] font-bold">Bidding Status</h1>
+        <h1 className="text-[20px] font-bold">Bidding Status</h1>
         <p className="text-[#5067EB]">View all</p>
       </header>
       <div className="relative overflow-x-auto shadow-2xl rounded-lg my-6">

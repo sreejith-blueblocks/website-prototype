@@ -1,6 +1,5 @@
-"use client";
-import React, { useEffect } from "react";
-import { AnimatePresence, motion, spring } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import layer1 from "@/public/assets/Left.png";
 import layer2 from "@/public/assets/Right.png";

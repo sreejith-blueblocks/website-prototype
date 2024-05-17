@@ -9,6 +9,7 @@ import {
 } from "react-icons/md";
 
 import { IoExitOutline } from "react-icons/io5";
+import Link from "next/link";
 const UserSidebar = ({ toggleSidebar, isSidebarOpen }) => {
   return (
     <aside
@@ -25,7 +26,8 @@ const UserSidebar = ({ toggleSidebar, isSidebarOpen }) => {
         >{`${isSidebarOpen ? "LOGO" : "BB"}`}</p>
       </div>
       <div className="mt-10">
-        <div
+        <Link
+          href={"/user"}
           className={`menuItem flex items-center  hover:bg-[#E5E5E5] hover:text-[#5067EB] hover:font-bold hover:border-r-[6px] border-[#5067EB] my-2 px-4  ${
             isSidebarOpen ? "" : "justify-center"
           }`}
@@ -42,8 +44,9 @@ const UserSidebar = ({ toggleSidebar, isSidebarOpen }) => {
               Dashboard
             </p>
           </div>
-        </div>
-        <div
+        </Link>
+        <Link
+          href={""}
           className={`menuItem flex items-center  hover:bg-[#E5E5E5] hover:text-[#5067EB] hover:font-bold hover:border-r-[6px] border-[#5067EB] my-2 px-4  cursor-pointer ${
             isSidebarOpen ? "" : "justify-center"
           }`}
@@ -60,8 +63,9 @@ const UserSidebar = ({ toggleSidebar, isSidebarOpen }) => {
               Assets
             </p>
           </div>
-        </div>
-        <div
+        </Link>
+        <Link
+          href={"/user/games"}
           className={`menuItem flex items-center  hover:bg-[#E5E5E5] hover:text-[#5067EB] hover:font-bold hover:border-r-[6px] border-[#5067EB] my-2 px-4  cursor-pointer ${
             isSidebarOpen ? "" : "justify-center"
           }`}
@@ -78,8 +82,9 @@ const UserSidebar = ({ toggleSidebar, isSidebarOpen }) => {
               Games
             </p>
           </div>
-        </div>
-        <div
+        </Link>
+        <Link
+          href={""}
           className={`menuItem flex items-center hover:bg-[#E5E5E5] hover:text-[#5067EB] hover:font-bold hover:border-r-[6px] border-[#5067EB] my-2 px-4 cursor-pointer ${
             isSidebarOpen ? "" : "justify-center"
           }`}
@@ -96,9 +101,10 @@ const UserSidebar = ({ toggleSidebar, isSidebarOpen }) => {
               Wallet
             </p>
           </div>
-        </div>
+        </Link>
 
-        <div
+        <Link
+          href={""}
           className={`menuItem w-full flex items-center hover:bg-[#E5E5E5] hover:text-[#5067EB] hover:font-bold hover:border-r-[6px] border-[#5067EB] my-2 px-4  cursor-pointer absolute bottom-0 ${
             isSidebarOpen ? "" : "justify-center"
           }`}
@@ -115,7 +121,7 @@ const UserSidebar = ({ toggleSidebar, isSidebarOpen }) => {
               Logout
             </p>
           </div>
-        </div>
+        </Link>
       </div>
     </aside>
   );

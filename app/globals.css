@@ -55,3 +55,19 @@ body {
     justify-content: center;
   }
 }
+
+@keyframes moveUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(20px); /* Adjust this value for desired movement */
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animated-path {
+  animation: moveUpDown 2s ease infinite; /* Adjust duration and timing function as needed */
+}
