@@ -24,7 +24,8 @@ const GetCurrentSlots = () => {
         </div>
 
         <div className=" flex-1  flex flex-col">
-          <h1 className="text-[20px] font-semibold">Generate Slot</h1>
+          <h1 className="text-[20px] font-semibold">Current Slot</h1>
+          <div></div>
         </div>
       </div>
     </div>

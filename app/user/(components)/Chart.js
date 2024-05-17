@@ -47,7 +47,7 @@ const Chart = ({ markers, responseData, setResponseData, setMarkers }) => {
       try {
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_USER_BASE_URL}Marker?userid=1`,
-          { userid: 1 },
+          { userid: 8 },
           {
             headers: {},
           }

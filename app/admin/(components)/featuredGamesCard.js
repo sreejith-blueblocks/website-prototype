@@ -27,8 +27,9 @@ const FeaturedGamesCard = () => {
         </Link>
       </header>
       <div className=" py-2 flex flex-row justify-between">
-        {gamesArray.map((game) => (
+        {gamesArray.map((game,index) => (
           <Link
+          key={index}
             href={`/admin/${game.link}`}
             className="w-[120px] h-[150px]  cursor-pointer drop-shadow-xl"
           >

@@ -47,8 +47,8 @@ const TradingChart = () => {
     const fetchWallet = async () => {
       try {
         const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_USER_BASE_URL}ViewBalance?userid=1`,
-          { userid: 1, coin: "" },
+          `${process.env.NEXT_PUBLIC_USER_BASE_URL}ViewBalance?userid=8`,
+          { userId: 8, coin: "" },
           {
             headers: {
               Authorization: `Bearer ${token}`,

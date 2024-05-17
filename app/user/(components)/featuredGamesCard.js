@@ -12,7 +12,7 @@ import Link from "next/link";
 const FeaturedGamesCard = () => {
   const gamesArray = [
     { id: 1, imageUrl: horseBetting, name: "Object 1", link: "betgame" },
-    { id: 2, imageUrl: logo2, name: "Object 2", link: "sdf" },
+    { id: 2, imageUrl: logo2, name: "Object 2", link: "newGraphLogic" },
     { id: 3, imageUrl: logo3, name: "Object 3", link: "dsf" },
     { id: 4, imageUrl: logo4, name: "Object 4", link: "dsf" },
     { id: 5, imageUrl: logo5, name: "Object 5", link: "dsf" },
@@ -29,8 +29,9 @@ const FeaturedGamesCard = () => {
         </Link>
       </header>
       <div className=" py-2 flex flex-row justify-between">
-        {gamesArray.map((game) => (
+        {gamesArray.map((game, index) => (
           <Link
+            key={index}
             href={`/user/${game.link}`}
             className="w-[120px] h-[150px]  cursor-pointer drop-shadow-xl"
           >

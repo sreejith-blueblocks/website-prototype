@@ -28,8 +28,11 @@ const PopularGamesCard = () => {
         </Link>
       </header>
       <div className=" py-2 flex flex-row justify-between">
-        {gamesArray.map((game) => (
-          <div className="w-[120px] h-[150px]  cursor-pointer drop-shadow-xl">
+        {gamesArray.map((game, index) => (
+          <div
+            key={index}
+            className="w-[120px] h-[150px]  cursor-pointer drop-shadow-xl"
+          >
             <Image
               src={game.imageUrl}
               width={500}
