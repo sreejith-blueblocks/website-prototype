@@ -18,7 +18,7 @@ const PortfolioTabs = ({
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_USER_BASE_URL}TradeShare/Sell`,
-        { userId: 1, quantity: sellQuantity, coin: coinId },
+        { userId: 8, quantity: sellQuantity, coin: coinId },
         {
           headers: {
             // Authorization: `Bearer ${token}`,

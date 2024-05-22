@@ -13,10 +13,8 @@ const MainContainer = () => {
   const [profitOrLoss, setProfitOrLoss] = useState(0);
   const [percentageGainOrLoss, setPercentageGainOrLoss] = useState(0);
   const [roi, setRoi] = useState(0);
-  //   console.log(currentPrice);
   const [markers, setMarkers] = useState([]);
 
-  //   console.log(markers);
 
   const handleBuy = () => {
     if (
@@ -35,7 +33,6 @@ const MainContainer = () => {
         text: `Buy @ ${currentPrice.value.toFixed()}`,
       });
       setQuantity(0);
-      console.log(currentPrice?.value, wallet, buyAt, sellAt);
     } else {
       alert(
         "Insufficient funds or current price not available or invalid quantity"
@@ -66,7 +63,6 @@ const MainContainer = () => {
       setRoi(roiValue); // Set ROI
       setBuyAt(0);
       setSellAt(0);
-      console.log(currentPrice?.value, wallet, buyAt, sellAt, profit);
     } else {
       alert(
         "Cannot sell without buying first or current price not available or invalid quantity"

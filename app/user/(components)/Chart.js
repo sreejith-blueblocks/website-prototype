@@ -46,7 +46,7 @@ const Chart = ({ markers, responseData, setResponseData, setMarkers }) => {
     const makeMarker = async (option) => {
       try {
         const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_USER_BASE_URL}Marker?userid=1`,
+          `${process.env.NEXT_PUBLIC_USER_BASE_URL}Marker?userid=8`,
           { userid: 8 },
           {
             headers: {},
@@ -66,8 +66,6 @@ const Chart = ({ markers, responseData, setResponseData, setMarkers }) => {
         }));
 
         setMarkers(responseData);
-        console.log(responseData);
-        console.log(responseData.reverse());
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -80,8 +78,8 @@ const Chart = ({ markers, responseData, setResponseData, setMarkers }) => {
       const authToken =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMSIsImp0aSI6IjU4MGQwZTMzLTFlMzEtNDU5NS04ZGZlLTVmYWZmNjQyY2RhNyIsImV4cCI6MTcxNDA0Mjk1OCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2MTk1NSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.GkhsY-3961S-ceWSJTgrGGaeOKsTTsMJ7E-HdTy1334";
       try {
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_USER_BASE_URL}ViewHistData`,
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_USER_BASE_URL}ViewMarketData`,
           {},
           {
             headers: {

@@ -71,3 +71,51 @@ body {
 .animated-path {
   animation: moveUpDown 2s ease infinite; /* Adjust duration and timing function as needed */
 }
+
+.simple {
+  width: 200px;
+  height: 200px;
+  background: red;
+}
+
+.simple::before {
+  content: "";
+  width: 30px;
+  height: 40px;
+  background: blue;
+  position: absolute;
+  position: absolute;
+  left: 0;
+  border-top-right-radius: 200px;
+}
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.message {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease-in-out forwards;
+}
+
+.slide-out {
+  animation: slideOut 0.5s ease-in-out forwards;
+}

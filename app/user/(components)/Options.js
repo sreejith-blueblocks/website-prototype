@@ -30,7 +30,6 @@ const Options = ({
     }
     const newAmount = quantity * currentPrice;
     setAmount(newAmount);
-    // console.log(currentPrice, amount, quantity);
   }, [currentPrice, quantity]);
 
   const handleSubmit = () => {
@@ -39,7 +38,7 @@ const Options = ({
         `${process.env.NEXT_PUBLIC_USER_BASE_URL}AddBalanceToWallet`,
         {
           price: parseFloat(value),
-          userId: 1,
+          userId: 8,
           coin: "string",
         },
         {

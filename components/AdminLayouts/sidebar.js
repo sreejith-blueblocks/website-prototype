@@ -6,10 +6,16 @@ import {
   MdShoppingBasket,
   MdWork,
 } from "react-icons/md";
+// import { useSession } from "next-auth/react";
 
 import { IoExitOutline } from "react-icons/io5";
 import Link from "next/link";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 const Sidebar = ({ toggleSidebar, isSidebarOpen }) => {
+  // const { data } = useSession();
+  // console.log(data.user.image);
+  const router = useRouter();
   return (
     <aside
       className={`relative transition-all duration-300 flex flex-col border-r-2 border-[#e4e4e4]  ${
@@ -122,7 +128,13 @@ const Sidebar = ({ toggleSidebar, isSidebarOpen }) => {
             isSidebarOpen ? "" : "justify-center"
           }`}
         >
-          <div className="flex w-full flex-row items-start rounded-md  cursor-pointer p-2">
+          <div
+            className="flex w-full flex-row items-start rounded-md  cursor-pointer p-2"
+            onClick={() => {
+              Cookies.remove("token");
+              router.push("/login");
+            }}
+          >
             <div>
               <IoExitOutline className="text-2xl mr-2" />
             </div>
@@ -133,6 +145,7 @@ const Sidebar = ({ toggleSidebar, isSidebarOpen }) => {
             >
               Logout
             </p>
+            <p></p>
           </div>
         </div>
       </div>

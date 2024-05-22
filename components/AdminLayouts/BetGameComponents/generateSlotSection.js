@@ -1,13 +1,13 @@
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-
 import CoverImage from "@/public/assets/games/BetGameCoverImage.png";
-
+import axios from "axios";
 import { IoIosArrowBack } from "react-icons/io";
 
 const GenerateSlotSection = () => {
   const [error, setError] = useState(null);
+  const [message, setMessage] = useState(null);
   const currentDate = new Date();
   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
   console.log(currentDate.toISOString().substring(0, 10));
@@ -24,18 +24,52 @@ const GenerateSlotSection = () => {
     .padStart(2, "0")}:${currentDate.getMinutes().toString().padStart(2, "0")}`;
 
   const [formData, setFormData] = useState({
-    date: currentDate.toISOString().substring(0, 10),
-    slotDuration: "",
+    selectedDate: currentDate.toISOString().substring(0, 10),
+    slotDurationInMinutes: "",
     slotInterval: "00:00:00",
     startTime: "",
     endTime: "",
+    adminId: 1,
   });
 
   const slotDuration = [
-    { name: "slotDuration", value: "01:00:00", displayName: "1hr" },
-    { name: "slotDuration", value: "02:00:00", displayName: "2hrs" },
-    { name: "slotDuration", value: "03:00:00", displayName: "3hrs" },
+    {
+      name: "slotDurationInMinutes",
+      value: "00:00:01",
+      displayName: "1min",
+      slotDurationInMinutes: 1,
+    },
+    {
+      name: "slotDurationInMinutes",
+      value: "00:30:00",
+      displayName: "30min",
+      slotDurationInMinutes: 30,
+    },
+    {
+      name: "slotDurationInMinutes",
+      value: "01:00:00",
+      displayName: "1hr",
+      slotDurationInMinutes: 60,
+    },
   ];
+
+  useEffect(() => {
+    if (message) {
+      // Hide the message after 5 seconds
+      const timer = setTimeout(() => {
+        setMessage(null);
+        setFormData({
+          selectedDate: currentDate.toISOString().substring(0, 10),
+          slotDurationInMinutes: "",
+          slotInterval: "00:00:00",
+          startTime: "",
+          endTime: "",
+          adminId: 1,
+        });
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   const [showSlotDuration, setShowSlotDuration] = useState(false);
 
@@ -52,19 +86,32 @@ const GenerateSlotSection = () => {
     e.preventDefault();
 
     if (
-      formData.slotDuration === "" ||
+      formData.slotDurationInMinutes === "" ||
       formData.startTime === "" ||
       formData.endTime === ""
     ) {
       setError("All Fields required");
       return; // Exit the function early if any field is empty
     }
+
+    axios
+      .post(`${process.env.NEXT_PUBLIC_BETGAME_BASE_URL}slots`, formData)
+      .then((response) => {
+        console.log("Response", response.data);
+        setMessage(response.data);
+      })
+
+      .catch((error) => {
+        console.log(error);
+        setError("Faild to generate Slots");
+      });
+
     // Handle form submission logic here, you can send data to backend or perform any action
     console.log(formData); // For now, just log form data
   };
 
   return (
-    <div>
+    <div className="relative">
       <div className="flex flex-row gap-2 items-center">
         <IoIosArrowBack className="text-[20px] hover:scale-125 cursor-pointer" />
         <h1 className="font-semibold">Front Runner Odds On</h1>
@@ -91,7 +138,8 @@ const GenerateSlotSection = () => {
                   type="date"
                   name="date"
                   value={
-                    formData.date || currentDate.toISOString().substring(0, 10)
+                    formData.selectedDate ||
+                    currentDate.toISOString().substring(0, 10)
                   }
                   onChange={handleChange}
                   max={formattedMaxDate}
@@ -107,7 +155,13 @@ const GenerateSlotSection = () => {
                 <input
                   type="button"
                   name="slotDuration"
-                  value={`${formData.slotDuration || "sds"}`}
+                  value={`${formData.slotDurationInMinutes || "Select"} ${
+                    formData.slotDurationInMinutes > 1
+                      ? "mins"
+                      : !formData.slotDurationInMinutes
+                      ? ""
+                      : "min"
+                  }`}
                   onClick={() => {
                     setShowSlotDuration(!showSlotDuration);
                   }}
@@ -123,7 +177,7 @@ const GenerateSlotSection = () => {
                         onClick={() => {
                           setFormData({
                             ...formData,
-                            [slot.name]: slot.value,
+                            [slot.name]: slot.slotDurationInMinutes,
                           });
                           //   console.log(formData);
                           setError("");
@@ -158,6 +212,7 @@ const GenerateSlotSection = () => {
                 <input
                   type="time"
                   name="startTime"
+                  step="2"
                   onChange={handleChange}
                   value={formData.startTime || currentTime}
                   max={formattedMaxDate}
@@ -171,6 +226,7 @@ const GenerateSlotSection = () => {
                 <input
                   type="time"
                   name="endTime"
+                  step="2"
                   value={formData.endTime || currentTime}
                   onChange={handleChange}
                   min={currentTime}
@@ -192,6 +248,15 @@ const GenerateSlotSection = () => {
           </form>
         </div>
       </div>
+      {message && (
+        <div
+          className={`message rounded-lg px-10 py-2 shadow-xl text-white font-bold bg-blue-300 ${
+            message ? "slide-in" : "slide-out"
+          }`}
+        >
+          {message}
+        </div>
+      )}
     </div>
   );
 };

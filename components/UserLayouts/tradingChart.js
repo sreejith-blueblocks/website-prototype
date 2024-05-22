@@ -69,7 +69,7 @@ const TradingChart = () => {
       try {
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_USER_BASE_URL}ViewTotalProfit`,
-          { userid: 1, stockId: 35, coin: "" },
+          { userId: 8, stockId: 35, coin: "" },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -90,7 +90,7 @@ const TradingChart = () => {
       try {
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_USER_BASE_URL}UserAssets`,
-          { userid: 1, coin: "" },
+          { userId: 8, coin: "" },
           {
             headers: {
               // Authorization: `Bearer ${token}`,
@@ -112,7 +112,7 @@ const TradingChart = () => {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_USER_BASE_URL}TradeShare/Buy`,
-        { userid: 1, quantity: quantity, coin: "", coin: "Bitcoin" },
+        { userId: 8, quantity: quantity, coin: "", coin: "Bitcoin" },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -134,7 +134,7 @@ const TradingChart = () => {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_USER_BASE_URL}TradeShare/Sell`,
-        { userid: 1, quantity: sellQuantity, stockID: id, coin: "" },
+        { userId: 8, quantity: sellQuantity, stockID: id, coin: "" },
         {
           headers: {
             Authorization: `Bearer ${token}`,

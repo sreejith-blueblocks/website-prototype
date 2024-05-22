@@ -1,3 +1,4 @@
+import { UserProvider } from "@/contexts/UserContext";
 import "./globals.css";
 
 export const metadata = {
@@ -9,7 +10,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="w-full flex flex-col items-center justify-center ">
-        {children}
+        <UserProvider>{children}</UserProvider>
       </body>
     </html>
   );

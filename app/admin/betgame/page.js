@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BsSearch } from "react-icons/bs";
 
 import GenerateSlotSection from "@/components/AdminLayouts/BetGameComponents/generateSlotSection";
 import Link from "next/link";
+import HeaderComponent from "./(components)/header";
 
 const page = () => {
   return (
@@ -23,20 +24,7 @@ const page = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-row items-center justify-between gap-14">
-          <p className="text-[#A2A2A2]">14 Nov 2023, 02:54 PM</p>
-          <div className="flex flex-row items-center justify-center gap-x-3">
-            <div>
-              <Link href={"user"} className="text-[15px] font-bold">
-                Admin
-              </Link>
-              <p className="text-[10px] font-medium text-[#C2C2C2]">
-                View Profile
-              </p>
-            </div>
-            <div className="w-[30px] h-[30px] rounded-full bg-blue-400"></div>
-          </div>
-        </div>
+        <HeaderComponent />
       </div>
       <GenerateSlotSection />
       <div className="max-w-full bg-slate-400"></div>
