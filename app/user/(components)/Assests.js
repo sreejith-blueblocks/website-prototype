@@ -66,7 +66,7 @@ const Assests = () => {
     const fetchAvailableCoins = async () => {
       try {
         const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_USER_BASE_URL}ViewCoins`,
+          `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/ViewCoins`,
           {},
           {
             headers: {

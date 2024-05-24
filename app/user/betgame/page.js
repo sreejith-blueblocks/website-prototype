@@ -1,5 +1,6 @@
 import BetTables from "@/components/UserLayouts/betTables";
 import GetCurrentSlots from "@/components/UserLayouts/getCurrentSlots";
+import TestTimeSorting from "@/components/UserLayouts/testTimeSorting";
 import React from "react";
 import { BsSearch } from "react-icons/bs";
 
@@ -28,6 +29,7 @@ const page = () => {
           </div>
         </div>
         <GetCurrentSlots />
+        <TestTimeSorting/>
         <BetTables />
       </div>
     </div>

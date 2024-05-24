@@ -1,6 +1,7 @@
 "use client";
+import { UserContext } from "@/contexts/UserContext";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 const PortfolioTabs = ({
   maxQuantity,
@@ -11,14 +12,16 @@ const PortfolioTabs = ({
   buySellTrigger,
 }) => {
   const [sellQuantity, setSellQuantity] = useState("");
+  const { user } = useContext(UserContext);
+
 
   const sellStocks = async (coinId) => {
     console.log("hello");
     console.log(coinId);
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_USER_BASE_URL}TradeShare/Sell`,
-        { userId: 8, quantity: sellQuantity, coin: coinId },
+        `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/TradeShare/Sell`,
+        { userid: user.userId, quantity: sellQuantity, coin: coinId },
         {
           headers: {
             // Authorization: `Bearer ${token}`,

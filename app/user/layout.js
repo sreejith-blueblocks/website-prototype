@@ -2,6 +2,8 @@
 import UserRightPannel from "@/components/UserLayouts/userRightPannel";
 
 import UserSidebar from "@/components/UserLayouts/userSidebar";
+import withAuth from "@/lib/withAuth";
+import withUserAuth from "@/lib/withUserAuth";
 import { useState } from "react";
 import React from "react";
 
@@ -25,4 +27,4 @@ const Layout = ({ children }) => {
   );
 };
 
-export default Layout;
+export default withUserAuth(Layout, ["user"]);

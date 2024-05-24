@@ -1,6 +1,7 @@
 "use client";
+import { UserContext } from "@/contexts/UserContext";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaArrowTrendDown, FaArrowTrendUp } from "react-icons/fa6";
 
 const Options = ({
@@ -23,6 +24,8 @@ const Options = ({
   const [pl, setPl] = useState(0);
   const [openBalanceTab, setOpenBalanceTab] = useState(false);
   const [value, setValue] = useState("");
+  const { user } = useContext(UserContext);
+
 
   useEffect(() => {
     if (quantity > maxQuantityToBuy) {
@@ -35,10 +38,10 @@ const Options = ({
   const handleSubmit = () => {
     axios
       .post(
-        `${process.env.NEXT_PUBLIC_USER_BASE_URL}AddBalanceToWallet`,
+        `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/AddBalanceToWallet`,
         {
           price: parseFloat(value),
-          userId: 8,
+          userid: user.userId,
           coin: "string",
         },
         {

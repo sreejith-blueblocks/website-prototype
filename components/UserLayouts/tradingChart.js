@@ -3,10 +3,11 @@ import Assests from "@/app/user/(components)/Assests";
 import Chart from "@/app/user/(components)/Chart";
 import Options from "@/app/user/(components)/Options";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaBitcoin } from "react-icons/fa6";
 import { IoIosArrowDropleft, IoIosArrowDroprightCircle } from "react-icons/io";
 import PortfolioTabs from "./portfolioTabs";
+import { UserContext } from "@/contexts/UserContext";
 
 const TradingChart = () => {
   const [wallet, setWallet] = useState(0);
@@ -19,6 +20,7 @@ const TradingChart = () => {
   const [markers, setMarkers] = useState([]);
   const [responseData, setResponseData] = useState([]);
   const [showPortfolio, setShowPortfolio] = useState(false);
+  const { user } = useContext(UserContext);
   const [portfolio, setPortfolio] = useState([]);
 
   const currentPrice = responseData[responseData.length - 1]?.value;
@@ -47,8 +49,8 @@ const TradingChart = () => {
     const fetchWallet = async () => {
       try {
         const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_USER_BASE_URL}ViewBalance?userid=8`,
-          { userId: 8, coin: "" },
+          `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/ViewBalance?userid=8`,
+          { userid: user.userId, coin: "" },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -68,8 +70,8 @@ const TradingChart = () => {
     const fetchPandL = async () => {
       try {
         const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_USER_BASE_URL}ViewTotalProfit`,
-          { userId: 8, stockId: 35, coin: "" },
+          `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/ViewTotalProfit`,
+          { userid: user.userId, stockId: 35, coin: "" },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -89,8 +91,8 @@ const TradingChart = () => {
     const fetchPortfolio = async () => {
       try {
         const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_USER_BASE_URL}UserAssets`,
-          { userId: 8, coin: "" },
+          `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/UserAssets`,
+          { userid: user.userId, coin: "" },
           {
             headers: {
               // Authorization: `Bearer ${token}`,
@@ -111,8 +113,8 @@ const TradingChart = () => {
   const buyStocks = async () => {
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_USER_BASE_URL}TradeShare/Buy`,
-        { userId: 8, quantity: quantity, coin: "", coin: "Bitcoin" },
+        `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/TradeShare/Buy`,
+        { userid: user.userId, quantity: quantity, coin: "", coin: "Bitcoin" },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -133,8 +135,8 @@ const TradingChart = () => {
     console.log("hello");
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_USER_BASE_URL}TradeShare/Sell`,
-        { userId: 8, quantity: sellQuantity, stockID: id, coin: "" },
+        `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/TradeShare/Sell`,
+        { userid: user.userId, quantity: sellQuantity, stockID: id, coin: "" },
         {
           headers: {
             Authorization: `Bearer ${token}`,

@@ -14,44 +14,63 @@ const GetCurrentSlots = () => {
   const [upcomingSlots, setUpcomingSlots] = useState([]);
 
   useEffect(() => {
-    // Fetch slots data from API
-    axios
-      .get("http://192.168.1.4:8087/api/Bet")
-      .then((response) => {
-        const { slots } = response.data;
-        setSlots(slots);
-        const currentTime = new Date();
-        const currentTimestamp = currentTime.getTime();
+    const fetchSlots = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_BETGAME_BASE_URL}Bet`
+        ); // Replace with your actual API endpoint
+        setSlots(response.data.slots);
+        console.log("fetch test");
+        console.log("Fetched slots data");
+      } catch (error) {
+        console.error("Error fetching slot data:", error);
+      }
+    };
 
-        let currentSlotFound = false;
-        const upcomingSlotsArray = [];
+    fetchSlots();
 
-        slots.forEach((slot) => {
-          const startTime = new Date(slot.startTime).getTime();
-          const endTime = new Date(slot.endTime).getTime();
+    // Set up an interval to refresh the slots data every 5 minutes
+    const fetchIntervalId = setInterval(fetchSlots, 300000); // 300000 ms = 5 minutes
 
-          if (currentTimestamp >= startTime && currentTimestamp <= endTime) {
-            setCurrentSlot(slot);
-            console.log(slot);
-            currentSlotFound = true;
-          } else if (!currentSlotFound) {
-            upcomingSlotsArray.push(slot);
-          }
-        });
-
-        // Sort upcoming slots by start time
-        upcomingSlotsArray.sort(
-          (a, b) => new Date(a.startTime) - new Date(b.startTime)
-        );
-
-        setUpcomingSlots(upcomingSlotsArray);
-        console.log(upcomingSlotsArray);
-      })
-      .catch((error) => {
-        console.error("Error fetching slots:", error);
-      });
+    // Cleanup intervals on component unmount
+    return () => {
+      clearInterval(fetchIntervalId);
+    };
   }, []);
 
+  useEffect(() => {
+    const checkSlots = () => {
+      determineCurrentAndUpcomingSlots(slots);
+    };
+
+    // Set up a more frequent interval to check and update the current and upcoming slots every 10 seconds
+    const checkIntervalId = setInterval(checkSlots, 1000); // 10000 ms = 10 seconds
+
+    // Perform an initial check
+    checkSlots();
+
+    // Cleanup interval on component unmount
+    return () => {
+      clearInterval(checkIntervalId);
+    };
+  }, [slots]);
+
+  const determineCurrentAndUpcomingSlots = (slots) => {
+    const now = new Date();
+    const currentTime = `${String(now.getHours()).padStart(2, "0")}:${String(
+      now.getMinutes()
+    ).padStart(2, "0")}:${String(now.getSeconds()).padStart(2, "0")}`;
+
+    const current = slots.find(
+      (slot) => currentTime >= slot.startTime && currentTime <= slot.endTime
+    );
+    const upcoming = slots
+      .filter((slot) => slot.startTime > currentTime)
+      .slice(0, 4);
+
+    setCurrentSlot(current);
+    setUpcomingSlots(upcoming);
+  };
   useEffect(() => {
     // console.log();
     console.log("trigger");
@@ -84,7 +103,7 @@ const GetCurrentSlots = () => {
             <div className="w-full flex flex-row gap-2">
               <button
                 onClick={() => {
-                  router.push("betgame/slot/2232");
+                  router.push(`betgame/slot/${currentSlot?.slotId}`);
                 }}
                 className="bg-[#5067EB]   flex-1 rounded-xl text-[22px] font-bold text-white relative"
               >
@@ -104,18 +123,17 @@ const GetCurrentSlots = () => {
             <div className="py-2">
               <p className="text-[12px]">Upcoming Slots</p>
               <div className="w-full flex flex-row justify-between flex-wrap  gap-2">
-                {["14:55:00", "14:58:00", "15:05:00", "15:20:00"].map(
-                  (item, index) => (
-                    <div
-                      key={index}
-                      className="cursor-pointer font-semibold hover:scale-105 w-[49%] h-[80px] rounded-xl bg-gray-300 text-center relative"
-                    >
-                      <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                        {item}
-                      </p>
-                    </div>
-                  )
-                )}
+                {upcomingSlots.map((item, index) => (
+                  <div
+                    key={index}
+                    className="cursor-pointer font-semibold hover:scale-105 w-[49%] h-[80px] rounded-xl bg-gray-300 text-center relative"
+                  >
+                    <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                      {item?.slotId}
+                    </p>
+                    <p>{item?.startTime}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
