@@ -17,7 +17,7 @@ export default function LoginPage() {
   const [activeOTPIndex, setActiveOTPIndex] = useState(0);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showOtpModal, setShowOtpModal] = useState(true);
+  const [showOtpModal, setShowOtpModal] = useState(false);
   const { setUser, parseJwt, setIsLoggedIn } = useContext(UserContext);
 
   const handleLogin = async (e) => {
