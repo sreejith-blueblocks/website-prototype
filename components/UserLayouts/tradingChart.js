@@ -14,43 +14,46 @@ const TradingChart = () => {
   const [quantity, setQuantity] = useState(0);
   const [amount, setAmount] = useState(0);
   const [profitLoss, setProfitLoss] = useState(0);
-  const [token, setToken] = useState("");
+  // const [token, setToken] = useState("");
   const [buySellTrigger, setBuySellTrigger] = useState(true);
-  //   console.log(currentPrice);
+
   const [markers, setMarkers] = useState([]);
   const [responseData, setResponseData] = useState([]);
   const [showPortfolio, setShowPortfolio] = useState(false);
-  const { user } = useContext(UserContext);
+  const { user, token } = useContext(UserContext);
   const [portfolio, setPortfolio] = useState([]);
 
   const currentPrice = responseData[responseData.length - 1]?.value;
   const maxQuantityToBuy = wallet / currentPrice;
-  // console.log(maxQuantityToBuy);
 
-  // console.log(tempMarkers, markers);
+  // useEffect(() => {
+  //   function getTokenFromCookies() {
+  //     const cookies = document.cookie.split(";");
+  //     for (let cookie of cookies) {
+  //       const [name, value] = cookie.trim().split("=");
+  //       if (name === "token") {
+  //         return value;
+  //       }
+  //     }
+  //     return null;
+  //   }
 
-  useEffect(() => {
-    function getTokenFromCookies() {
-      const cookies = document.cookie.split(";");
-      for (let cookie of cookies) {
-        const [name, value] = cookie.trim().split("=");
-        if (name === "token") {
-          return value;
-        }
-      }
-      return null;
-    }
-
-    const token = getTokenFromCookies();
-    setToken(token);
-  }, []);
+  //   const token = getTokenFromCookies();
+  //   setToken(token);
+  // }, []);
 
   useEffect(() => {
     const fetchWallet = async () => {
       try {
         const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/ViewBalance?userid=8`,
-          { userid: user.userId, coin: "" },
+          `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/ViewBalance`,
+          {
+            userId: user.userid,
+            coin: "string",
+            quantity: 0,
+            price: 0,
+            stockId: 0,
+          },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -59,8 +62,7 @@ const TradingChart = () => {
         );
 
         const responseData = response.data;
-        setWallet(responseData);
-        console.log(responseData);
+        setWallet(responseData?.balance);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -71,7 +73,7 @@ const TradingChart = () => {
       try {
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/ViewTotalProfit`,
-          { userid: user.userId, stockId: 35, coin: "" },
+          { userid: user.userid, stockId: 35, coin: "" },
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -80,10 +82,9 @@ const TradingChart = () => {
         );
 
         const responseData = response.data;
-        setProfitLoss(responseData);
-        console.log(responseData);
+        setProfitLoss(responseData.data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data PandL:", error);
       }
     };
     fetchPandL();
@@ -92,17 +93,19 @@ const TradingChart = () => {
       try {
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/UserAssets`,
-          { userid: user.userId, coin: "" },
+          { userId: user?.userid, coin: "" },
           {
             headers: {
-              // Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
 
+        if (response.status === 200) {
+          // console.log(response.data);
+        }
         const responseData = response.data;
-        setPortfolio(responseData?.coins);
-        console.log(responseData?.coins);
+        setPortfolio(responseData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -114,7 +117,7 @@ const TradingChart = () => {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/TradeShare/Buy`,
-        { userid: user.userId, quantity: quantity, coin: "", coin: "Bitcoin" },
+        { userid: user.userid, quantity: quantity, coin: "", coin: "Bitcoin" },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -124,7 +127,6 @@ const TradingChart = () => {
 
       const responseData = response.data;
 
-      console.log(responseData);
       setBuySellTrigger(!buySellTrigger);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -132,11 +134,10 @@ const TradingChart = () => {
   };
 
   const sellStocks = async (id) => {
-    console.log("hello");
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/TradeShare/Sell`,
-        { userid: user.userId, quantity: sellQuantity, stockID: id, coin: "" },
+        { userid: user.userid, quantity: sellQuantity, stockID: id, coin: "" },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -176,6 +177,7 @@ const TradingChart = () => {
             responseData={responseData}
             setResponseData={setResponseData}
             setMarkers={setMarkers}
+            buySellTrigger={buySellTrigger}
           />
         </div>
         <div className="h-full  w-[30%] border-y-[1px] border-r-[1px] border-[#C2C2C2] rounded-r-2xl p-2 flex flex-col overflow-y-scroll no-scroll-bar">
@@ -191,8 +193,6 @@ const TradingChart = () => {
             setBuySellTrigger={setBuySellTrigger}
             buySellTrigger={buySellTrigger}
             maxQuantityToBuy={maxQuantityToBuy}
-            profitLoss={profitLoss}
-            // makeMarker={makeMarker}
           />
           <Assests />
         </div>

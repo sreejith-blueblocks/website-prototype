@@ -1,0 +1,64 @@
+<div className={`${styles.loginContainer} relative`}>
+        <div className={styles.left}>
+          <h1 className={styles.logo}>Blue Logo</h1>
+          <p className={styles.tagline}>Welcome back! Log in to continue</p>
+          <div className={styles.socialIcons}>
+            <button className={`${styles.socialButton} ${styles.google}`}>
+              <FcGoogle className={`${styles.icon}`} />
+              Log in with Google
+            </button>
+            <button className={`${styles.socialButton} ${styles.facebook}`}>
+              <FaSquareFacebook className={`${styles.icon} text-[#5050ff]`} />
+              Log in with Facebook
+            </button>
+          </div>
+        </div>
+        <div className={styles.right}>
+          <h1 className={styles.formTitle}>User Login</h1>
+          {showOtpModal ? (
+            <div className={styles.modal}>
+              <div className={styles.modalContent}>
+                <h2 className="text-center">Enter OTP</h2>
+                <OtpField
+                  otp={otp}
+                  setOtp={setOtp}
+                  activeOTPIndex={activeOTPIndex}
+                  setActiveOTPIndex={setActiveOTPIndex}
+                  handleOtpVerification={handleOtpVerification}
+                />
+                {error && <p className="text-red-500 text-center">{error}</p>}
+              </div>
+            </div>
+          ) : (
+            <form onSubmit={handleLogin} className={styles.loginForm}>
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className={styles.loginInput}
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className={styles.loginInput}
+              />
+              {error && (
+                <p className="text-red-500 text-center font-bold mb-2">
+                  {error}
+                </p>
+              )}
+              <button type="submit" className={styles.loginButton}>
+                Log In
+              </button>
+            </form>
+          )}
+          {loading && !error && (
+            <div className={styles.loadingContainer}>
+              <div className={styles.loadingSpinner}></div>
+            </div>
+          )}
+        </div>
+      </div>

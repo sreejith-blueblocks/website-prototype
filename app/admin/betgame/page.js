@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
+"use client";
+import React, { useContext, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 
 import GenerateSlotSection from "@/components/AdminLayouts/BetGameComponents/generateSlotSection";
 import Link from "next/link";
 import HeaderComponent from "./(components)/header";
+import BetTimeRangeTable from "@/components/AdminLayouts/BetGameComponents/betTimeRangeTable";
 
 const page = () => {
+  const [submitTrigger, setSubmitTrigger] = useState(false);
   return (
     <div className="flex-1 max-w-full h-screen overflow-y-scroll bg-[#E8E8E8] px-10">
       <div className="flex items-center justify-between my-[20px]">
@@ -26,8 +29,10 @@ const page = () => {
         </div>
         <HeaderComponent />
       </div>
-      <GenerateSlotSection />
-      <div className="max-w-full bg-slate-400"></div>
+      <GenerateSlotSection setSubmitTrigger={setSubmitTrigger} submitTrigger={submitTrigger} />
+      <div className="max-w-full ">
+        <BetTimeRangeTable submitTrigger={submitTrigger} />
+      </div>
     </div>
   );
 };

@@ -2,16 +2,21 @@
 import Cookies from "js-cookie";
 import { createContext, useEffect, useState } from "react";
 import jwt from "jsonwebtoken";
+import { useRouter } from "next/navigation";
 
 export const UserContext = createContext();
 
 export function UserProvider({ children }) {
+  const router = useRouter();
+
   const [user, setUser] = useState();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState("");
 
   useEffect(() => {
     const fetchJwt = async () => {
       const token = Cookies.get("token");
+      setToken(token);
 
       if (!token) {
         console.log("Please Provide some token");
@@ -36,12 +41,19 @@ export function UserProvider({ children }) {
 
       return decoded;
     } catch (error) {
-      console.error("Error decoding JWT payload:", error.message);
+      if (error.name === "TokenExpiredError") {
+        setUser();
+        Cookies.remove("token");
+        router.push("/login");
+      }
+      console.error("Error decoding JWT payload:", error.name);
     }
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser, parseJwt, setIsLoggedIn }}>
+    <UserContext.Provider
+      value={{ user, setUser, parseJwt, setIsLoggedIn, token }}
+    >
       {children}
     </UserContext.Provider>
   );

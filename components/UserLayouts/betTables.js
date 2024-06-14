@@ -1,56 +1,31 @@
 "use client";
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const BetTables = () => {
-  const bets = [
-    {
-      game: "Star Quest",
-      user: "user***32",
-      location: "United States",
-      timeDate: "09:45, 02 Nov 2023",
-      betAmount: "$345.2K",
-      multiplier: "3.5x",
-      payout: "$1208.2K",
-    },
-    {
-      game: "Treasure Island",
-      user: "user***88",
-      location: "France",
-      timeDate: "16:30, 03 Nov 2023",
-      betAmount: "$920K",
-      multiplier: "2.2x",
-      payout: "$2024K",
-    },
-    {
-      game: "Dragon's Lair",
-      user: "user***13",
-      location: "Japan",
-      timeDate: "10:15, 04 Nov 2023",
-      betAmount: "$220.5K",
-      multiplier: "7.1x",
-      payout: "$1563.55K",
-    },
-    {
-      game: "Lucky Leprechaun",
-      user: "user***55",
-      location: "Ireland",
-      timeDate: "14:20, 05 Nov 2023",
-      betAmount: "$600K",
-      multiplier: "4.5x",
-      payout: "$2700K",
-    },
-    {
-      game: "Pharaoh's Fortune",
-      user: "user***77",
-      location: "Egypt",
-      timeDate: "11:55, 06 Nov 2023",
-      betAmount: "$1500K",
-      multiplier: "6.2x",
-      payout: "$9300K",
-    },
-  ];
+  const [bets, setBets] = useState([]);
+  useEffect(() => {
+    const fetchWallet = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_BETGAME_BASE_URL}winningHorseView`,
 
-  const [selectedTable, setSelectedTable] = useState(null);
+          {
+            headers: {
+              Authorization: `Bearer ${"token"}`,
+            },
+          }
+        );
+
+        setBets(response?.data?.raceResults);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchWallet();
+  }, []);
+
+
   return (
     <div className="my-10">
       <div className="flex flex-row gap-x-5">
@@ -64,22 +39,23 @@ const BetTables = () => {
           <thead className="text-xs text-gray-700 uppercase bg-gray-300 ">
             <tr>
               <th scope="col" className="px-6 py-3">
+                #
+              </th>
+              <th scope="col" className="px-6 py-3 text-center">
                 Game
               </th>
               <th scope="col" className="px-6 py-3 text-center">
-                User
+                Player
               </th>
-              <th scope="col" className="px-6 py-3 text-center">
-                Location
-              </th>
+
               <th scope="col" className="px-6 py-3 text-center">
                 Betting Time&Date
               </th>
               <th scope="col" className="px-6 py-3 text-center">
-                Bet Amount
+                Winning Item
               </th>
               <th scope="col" className="px-6 py-3 text-center">
-                Multiplier
+                Slot Number
               </th>
               <th scope="col" className="px-6 py-3 text-center">
                 Payout
@@ -87,29 +63,37 @@ const BetTables = () => {
             </tr>
           </thead>
           <tbody>
-            {bets.map((product, index) => (
-              <tr
-                key={index}
-                className={`${
-                  index % 2 === 0
-                    ? "even:bg-gray-50 even:dark:bg-gray-800"
-                    : "odd:bg-white odd:dark:bg-gray-900"
-                } border-b border-gray-300`}
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+            {bets.map((product, index) => {
+              return (
+                <tr
+                  key={index}
+                  className={`${
+                    index % 2 === 0
+                      ? "even:bg-gray-50 even:dark:bg-gray-800"
+                      : "odd:bg-white odd:dark:bg-gray-900"
+                  } border-b border-gray-300`}
                 >
-                  {product.game}
-                </th>
-                <td className="px-6 py-4 text-center">{product.user}</td>
-                <td className="px-6 py-4 text-center">{product.location}</td>
-                <td className="px-6 py-4 text-center">{product.timeDate}</td>
-                <td className="px-6 py-4 text-center">{product.betAmount}</td>
-                <td className="px-6 py-4 text-center">{product.multiplier}</td>
-                <td className="px-6 py-4 text-center">{product.payout}</td>
-              </tr>
-            ))}
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                  >
+                    {index + 1}
+                  </th>
+                  <td className="px-6 py-4 text-center">{product.gameName}</td>
+                  <td className="px-6 py-4 text-center">{product.username}</td>
+                  <td className="px-6 py-4 text-center">{`${
+                    new Date(product.betTime).toISOString().split("T")[0]
+                  }`}</td>
+                  <td className="px-6 py-4 text-center">
+                    {product.winningItemName}
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    {product.slotNumber}
+                  </td>
+                  <td className="px-6 py-4 text-center">{index + 300}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

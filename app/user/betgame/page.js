@@ -29,7 +29,7 @@ const page = () => {
           </div>
         </div>
         <GetCurrentSlots />
-        <TestTimeSorting/>
+
         <BetTables />
       </div>
     </div>

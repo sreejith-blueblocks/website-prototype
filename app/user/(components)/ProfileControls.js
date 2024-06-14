@@ -1,9 +1,13 @@
-import React from "react";
+"use client";
+import React, { useContext } from "react";
 import { VscBellDot } from "react-icons/vsc";
 import { AiFillSetting } from "react-icons/ai";
 import Link from "next/link";
+import { UserContext } from "@/contexts/UserContext";
 
 const ProfileControls = () => {
+  const { user } = useContext(UserContext);
+
   return (
     <div className="my-[20px] flex items-center flex-row justify-between mb-8">
       <div>
@@ -17,7 +21,7 @@ const ProfileControls = () => {
       <div className="flex flex-row items-center justify-center gap-x-3">
         <div>
           <Link href="/admin" className="text-[15px] font-bold">
-            User
+            {user?.sub || "User"}
           </Link>
           <p className="text-[10px] font-medium text-[#C2C2C2]">View Profile</p>
         </div>

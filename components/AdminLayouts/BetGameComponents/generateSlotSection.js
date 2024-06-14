@@ -5,12 +5,17 @@ import CoverImage from "@/public/assets/games/BetGameCoverImage.png";
 import axios from "axios";
 import { IoIosArrowBack } from "react-icons/io";
 
-const GenerateSlotSection = () => {
+const GenerateSlotSection = ({ setSubmitTrigger, submitTrigger }) => {
   const [error, setError] = useState(null);
   const [message, setMessage] = useState(null);
+  const [gameList, setGameList] = useState([]);
+  const [showSlotDuration, setShowSlotDuration] = useState(false);
+  const [showGameOptions, setShowGameOptions] = useState(false);
+  const [selectedGame, setSelectedGame] = useState({});
+
   const currentDate = new Date();
   const options = { year: "numeric", month: "2-digit", day: "2-digit" };
-  console.log(currentDate.toISOString().substring(0, 10));
+
   const maxDate = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth(),
@@ -26,10 +31,11 @@ const GenerateSlotSection = () => {
   const [formData, setFormData] = useState({
     selectedDate: currentDate.toISOString().substring(0, 10),
     slotDurationInMinutes: "",
-    slotInterval: "00:00:00",
-    startTime: "",
-    endTime: "",
+    adminStartTime: "",
+    adminEndTime: "",
     adminId: 1,
+    gameId: 0,
+    winningPrice: 100.0,
   });
 
   const slotDuration = [
@@ -61,17 +67,31 @@ const GenerateSlotSection = () => {
         setFormData({
           selectedDate: currentDate.toISOString().substring(0, 10),
           slotDurationInMinutes: "",
-          slotInterval: "00:00:00",
-          startTime: "",
-          endTime: "",
+
+          adminStartTime: "",
+          adminEndTime: "",
           adminId: 1,
         });
+        setSelectedGame({});
       }, 3000);
       return () => clearTimeout(timer);
     }
   }, [message]);
 
-  const [showSlotDuration, setShowSlotDuration] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_BETGAME_BASE_URL}list/games`
+        );
+        setGameList(response.data);
+      } catch (error) {
+        console.error("Error fetching games:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -87,8 +107,8 @@ const GenerateSlotSection = () => {
 
     if (
       formData.slotDurationInMinutes === "" ||
-      formData.startTime === "" ||
-      formData.endTime === ""
+      formData.adminStartTime === "" ||
+      formData.adminEndTime === ""
     ) {
       setError("All Fields required");
       return; // Exit the function early if any field is empty
@@ -97,17 +117,17 @@ const GenerateSlotSection = () => {
     axios
       .post(`${process.env.NEXT_PUBLIC_BETGAME_BASE_URL}slots`, formData)
       .then((response) => {
-        console.log("Response", response.data);
         setMessage(response.data);
+        setSubmitTrigger(!submitTrigger);
       })
 
       .catch((error) => {
-        console.log(error);
-        setError("Faild to generate Slots");
+        // console.log();
+        setError(error?.response?.data || "Faild to Generate Slots");
       });
 
     // Handle form submission logic here, you can send data to backend or perform any action
-    console.log(formData); // For now, just log form data
+    // For now, just log form data
   };
 
   return (
@@ -190,31 +210,52 @@ const GenerateSlotSection = () => {
                   </div>
                 )}
               </div>
-              <div className="col-start-2 col-end-3 row-start-2 row-end-3">
-                <label className="text-[14px] font-semibold">
-                  Slot Interval
-                </label>
+              <div className="col-start-2 col-end-3 row-start-2 row-end-3 relative">
+                <label className="text-[14px] font-semibold">Select Game</label>
                 <input
                   type="button"
-                  name="slotInterval"
-                  value={formData.slotInterval}
-                  onChange={handleChange}
-                  max={formattedMaxDate}
-                  min={currentDate.toISOString().split("T")[0]}
-                  className="mt-1 text-start bg-white select-none block w-full rounded-md border-gray-300 shadow-sm p-2 text-[#2c2c2c] font-semibold"
+                  name="slotDuration"
+                  value={`${selectedGame?.gameName || "Select"}`}
+                  onClick={() => {
+                    setShowGameOptions(!showGameOptions);
+                  }}
+                  className="mt-1 text-start bg-white cursor-pointer   select-none block w-full rounded-md border-gray-300 shadow-sm p-2 text-[#2c2c2c] font-semibold"
                   style={{ outline: "none" }} // Add this line to remove the focus ring
                 ></input>
+                {showGameOptions && (
+                  <div className="absolute border bg-white w-full p-2 shadow-xl rounded-lg max-h-[150px] overflow-y-scroll">
+                    {gameList.map((game, index) => (
+                      <div
+                        key={index}
+                        className="hover:bg-slate-200 font-semibold px-2 cursor-pointer text-center rounded-lg text-[14px] py-2 "
+                        onClick={() => {
+                          setFormData({
+                            ...formData,
+                            gameId: game?.gameId,
+                          });
+                          setSelectedGame(game);
+                          //   console.log(formData);
+                          setError("");
+                          setShowGameOptions(false);
+                        }}
+                      >
+                        {game.gameName}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
+
               <div className="col-start-1 col-end-2 row-start-3 row-end-4">
                 <label className="text-[14px] font-semibold">
                   Starting Time
                 </label>
                 <input
                   type="time"
-                  name="startTime"
+                  name="adminStartTime"
                   step="2"
                   onChange={handleChange}
-                  value={formData.startTime || currentTime}
+                  value={formData.adminStartTime || currentTime}
                   max={formattedMaxDate}
                   min={currentDate.toISOString().split("T")[0]}
                   className="mt-1 select-none block w-full rounded-md border-gray-300 shadow-sm p-2 text-[#2c2c2c] font-semibold"
@@ -225,9 +266,9 @@ const GenerateSlotSection = () => {
                 <label className="text-[14px] font-semibold">Ending Time</label>
                 <input
                   type="time"
-                  name="endTime"
+                  name="adminEndTime"
                   step="2"
-                  value={formData.endTime || currentTime}
+                  value={formData.adminEndTime || currentTime}
                   onChange={handleChange}
                   min={currentTime}
                   className="mt-1 select-none block w-full rounded-md border-gray-300 shadow-sm p-2 text-[#2c2c2c] font-semibold"

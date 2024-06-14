@@ -36,7 +36,7 @@ const MainContainerTwo = () => {
         text: `Buy @ ${currentPrice.value.toFixed()}`,
       });
       setQuantity(0);
-      console.log(currentPrice?.value, wallet, buyAt, sellAt);
+     
     } else {
       alert(
         "Insufficient funds or current price not available or invalid quantity"
@@ -67,7 +67,7 @@ const MainContainerTwo = () => {
       setRoi(roiValue); // Set ROI
       setBuyAt(0);
       setSellAt(0);
-      console.log(currentPrice?.value, wallet, buyAt, sellAt, profit);
+      
     } else {
       alert(
         "Cannot sell without buying first or current price not available or invalid quantity"

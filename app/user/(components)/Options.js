@@ -12,20 +12,16 @@ const Options = ({
   amount,
   currentPrice,
   buyStocks,
-
   setShowPortfolio,
   setBuySellTrigger,
   buySellTrigger,
   maxQuantityToBuy,
-  makeMarker,
-  profitLoss,
 }) => {
   const [percentageGainOrLoss, setPercentageGainOrLoss] = useState(0);
   const [pl, setPl] = useState(0);
   const [openBalanceTab, setOpenBalanceTab] = useState(false);
   const [value, setValue] = useState("");
-  const { user } = useContext(UserContext);
-
+  const { user, token } = useContext(UserContext);
 
   useEffect(() => {
     if (quantity > maxQuantityToBuy) {
@@ -41,17 +37,17 @@ const Options = ({
         `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/AddBalanceToWallet`,
         {
           price: parseFloat(value),
-          userid: user.userId,
+          userId: user.userid,
           coin: "string",
         },
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       )
       .then((response) => {
-        console.log("API call successful");
         setValue("");
         setOpenBalanceTab(false);
         setBuySellTrigger(!buySellTrigger);

@@ -1,16 +1,18 @@
 import React from "react";
-import { FaBars } from "react-icons/fa6";
 import {
   MdDashboard,
   MdPeople,
-  MdSettings,
   MdShoppingBasket,
   MdWork,
 } from "react-icons/md";
 
 import { IoExitOutline } from "react-icons/io5";
 import Link from "next/link";
+import Cookies from "js-cookie";
+import { usePathname } from "next/navigation";
 const UserSidebar = ({ toggleSidebar, isSidebarOpen }) => {
+  const pathname = usePathname;
+
   return (
     <aside
       className={`relative transition-all duration-300 flex flex-col border-r-2 border-[#e4e4e4]  ${
@@ -104,10 +106,14 @@ const UserSidebar = ({ toggleSidebar, isSidebarOpen }) => {
         </Link>
 
         <Link
-          href={""}
+          href={"/login"}
           className={`menuItem w-full flex items-center hover:bg-[#E5E5E5] hover:text-[#5067EB] hover:font-bold hover:border-r-[6px] border-[#5067EB] my-2 px-4  cursor-pointer absolute bottom-0 ${
             isSidebarOpen ? "" : "justify-center"
           }`}
+          onClick={() => {
+            Cookies.remove("token");
+            // router.push("one");
+          }}
         >
           <div className="flex w-full flex-row items-start  rounded-md  cursor-pointer p-2">
             <div>

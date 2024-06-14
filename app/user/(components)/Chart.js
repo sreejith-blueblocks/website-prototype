@@ -4,13 +4,18 @@ import { createChart, ColorType } from "lightweight-charts";
 import axios from "axios";
 import { UserContext } from "@/contexts/UserContext";
 
-const Chart = ({ markers, responseData, setResponseData, setMarkers }) => {
+const Chart = ({
+  markers,
+  responseData,
+  setResponseData,
+  setMarkers,
+  buySellTrigger,
+}) => {
   const chartContainerRef = useRef();
   const chartInstanceRef = useRef(null);
   const seriesRef = useRef(null);
   const [tooltipPrice, settooltipPrice] = useState(0);
-  const { user } = useContext(UserContext);
-  console.log(user);
+  const { user, token } = useContext(UserContext);
 
   const tooltipRef = useRef(null);
 
@@ -48,11 +53,12 @@ const Chart = ({ markers, responseData, setResponseData, setMarkers }) => {
   useEffect(() => {
     const makeMarker = async (option) => {
       try {
-        const response = await axios.post(
-          `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/Marker?userid=8`,
-          { userid: user.userId },
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/Marker?userid=2`,
           {
-            headers: {},
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
         );
 
@@ -74,19 +80,17 @@ const Chart = ({ markers, responseData, setResponseData, setMarkers }) => {
       }
     };
     makeMarker();
-  }, [responseData]);
+  }, [buySellTrigger]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const authToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyMSIsImp0aSI6IjU4MGQwZTMzLTFlMzEtNDU5NS04ZGZlLTVmYWZmNjQyY2RhNyIsImV4cCI6MTcxNDA0Mjk1OCwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo2MTk1NSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6NDIwMCJ9.GkhsY-3961S-ceWSJTgrGGaeOKsTTsMJ7E-HdTy1334";
       try {
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/ViewMarketData`,
-          {},
+
           {
             headers: {
-              Authorization: `Bearer ${authToken}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -160,7 +164,7 @@ const Chart = ({ markers, responseData, setResponseData, setMarkers }) => {
   }, []);
 
   useEffect(() => {
-    // seriesRef.current.setData(responseData);
+    seriesRef.current.setData(responseData);
     seriesRef.current.setMarkers(markers);
   }, [responseData]);
 

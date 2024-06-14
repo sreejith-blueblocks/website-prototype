@@ -1,6 +1,7 @@
 "use client";
+import { UserContext } from "@/contexts/UserContext";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const dummyCryptoCoins = [
   {
@@ -61,19 +62,20 @@ const dummyCryptoCoins = [
 
 const Assests = () => {
   const [coins, setCoins] = useState([]);
+  const { user, token } = useContext(UserContext);
 
   useEffect(() => {
     const fetchAvailableCoins = async () => {
       try {
-        const response = await axios.post(
+        const response = await axios.get(
           `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/ViewCoins`,
-          {},
           {
             headers: {
-              // Authorization: `Bearer ${authToken}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
+
         setCoins(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);

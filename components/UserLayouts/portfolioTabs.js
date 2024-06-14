@@ -12,19 +12,16 @@ const PortfolioTabs = ({
   buySellTrigger,
 }) => {
   const [sellQuantity, setSellQuantity] = useState("");
-  const { user } = useContext(UserContext);
-
+  const { user, token } = useContext(UserContext);
 
   const sellStocks = async (coinId) => {
-    console.log("hello");
-    console.log(coinId);
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/TradeShare/Sell`,
-        { userid: user.userId, quantity: sellQuantity, coin: coinId },
+        { userid: user.userid, quantity: sellQuantity, coin: coinId },
         {
           headers: {
-            // Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );

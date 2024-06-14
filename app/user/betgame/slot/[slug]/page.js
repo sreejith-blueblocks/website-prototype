@@ -31,7 +31,6 @@ export default function Page({ params }) {
   ];
   const { user } = useContext(UserContext);
 
-
   useEffect(() => {
     if (showPopup) {
       const fetchWinner = async () => {
@@ -40,7 +39,7 @@ export default function Page({ params }) {
             `${process.env.NEXT_PUBLIC_BETGAME_BASE_URL}winningDetails`,
             {
               slotNumber: slotDetails?.slotNumber,
-              userid: user.userId,
+              userid: user.userid,
               slotId: slotDetails?.slotId,
               startTime: slotDetails?.startTime,
               endTime: slotDetails?.endTime,
@@ -82,6 +81,7 @@ export default function Page({ params }) {
           { slotId: params?.slug }
         );
         setSlotDetails(response.data);
+
         const endTime = getEndTime(response.data.endTime);
         startCounter(endTime);
       } catch (error) {
@@ -104,8 +104,9 @@ export default function Page({ params }) {
     const intervalId = setInterval(() => {
       const currentTime = new Date().getTime();
       const timeLeft = endTime - currentTime;
+      // console.log(timeLeft, timeLeft + 1, timeLeft + 5);
 
-      if (timeLeft <= 0) {
+      if (timeLeft + 5 < 0) {
         clearInterval(intervalId);
         setShowPopup(true);
         setCounter("Time's up!");
@@ -125,7 +126,7 @@ export default function Page({ params }) {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BETGAME_BASE_URL}Bet`,
         {
-          userid: user.userId,
+          userid: user.userid,
           selectedHorse: selectedHorse?.id,
           betAmount: betAmount,
           slotNumber: slotDetails?.slotNumber,

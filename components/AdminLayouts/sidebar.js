@@ -69,7 +69,27 @@ const Sidebar = ({ toggleSidebar, isSidebarOpen }) => {
             </div>
           </div>
         </Link>
-        <div
+        <Link
+          href={"/admin/games/create"}
+          className={`menuItem flex items-center hover:bg-[#E5E5E5] hover:text-[#5067EB] hover:font-bold hover:border-r-[6px] border-[#5067EB]  my-2 px-4  cursor-pointer ${
+            isSidebarOpen ? "" : "justify-center"
+          }`}
+        >
+          <div className="flex flex-row items-start   rounded-md w-full cursor-pointer p-2">
+            <div>
+              <MdWork className="text-2xl mr-2" />
+            </div>
+            <div
+              className={`${
+                isSidebarOpen ? "block" : "hidden"
+              } overflow-hidden whitespace-nowrap text-[16px] font-medium`}
+            >
+              Create Game
+            </div>
+          </div>
+        </Link>
+        <Link
+          href={"/admin/games"}
           className={`menuItem flex items-center hover:bg-[#E5E5E5] hover:text-[#5067EB] hover:font-bold hover:border-r-[6px] border-[#5067EB]  my-2 px-4  cursor-pointer ${
             isSidebarOpen ? "" : "justify-center"
           }`}
@@ -83,10 +103,10 @@ const Sidebar = ({ toggleSidebar, isSidebarOpen }) => {
                 isSidebarOpen ? "block" : "hidden"
               } overflow-hidden whitespace-nowrap text-[16px] font-medium`}
             >
-              User Management
+              Games
             </p>
           </div>
-        </div>
+        </Link>
         <div
           className={`menuItem flex items-center hover:bg-[#E5E5E5] hover:text-[#5067EB] hover:font-bold hover:border-r-[6px] border-[#5067EB]  my-2 px-4  cursor-pointer ${
             isSidebarOpen ? "" : "justify-center"

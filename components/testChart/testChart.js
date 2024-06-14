@@ -210,18 +210,18 @@ const TestChart = () => {
 
   const handleSell = () => {
     setsellAt("sell");
-    console.log(chartData);
+    
   };
   const handleBuy = () => {
     setBuyAt("buy");
-    console.log(chartData[chartData.length - 1]);
+    
   };
 
   const addMarkers = (data) => {
     if (data.length >= 49) {
       const buyIndex = data.findIndex((item) => item.time === buyAt);
       const datesForMarkers = [data[data.length - 20], data[data.length - 19]];
-      console.log(buyIndex, data[data.buyIndex]);
+      
       let indexOfMinPrice = 0;
       for (let i = 1; i < datesForMarkers.length; i++) {
         if (datesForMarkers[i].high < datesForMarkers[indexOfMinPrice].high) {

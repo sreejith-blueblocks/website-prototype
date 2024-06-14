@@ -119,3 +119,21 @@ body {
 .slide-out {
   animation: slideOut 0.5s ease-in-out forwards;
 }
+
+input::-moz-placeholder {
+  color: #8e8e8e;
+  opacity: 1;
+}
+
+input:-ms-input-placeholder {
+  color: #8e8e8e;
+}
+
+input::-webkit-input-placeholder {
+  color: #8e8e8e;
+}
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px #071841 inset !important; /* This sets a solid background to prevent default styles */
+}

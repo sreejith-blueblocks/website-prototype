@@ -14,8 +14,7 @@ const TestTimeSorting = () => {
           `${process.env.NEXT_PUBLIC_BETGAME_BASE_URL}Bet`
         ); // Replace with your actual API endpoint
         setSlots(response.data.slots);
-        console.log("fetch test");
-        console.log("Fetched slots data");
+      
       } catch (error) {
         console.error("Error fetching slot data:", error);
       }

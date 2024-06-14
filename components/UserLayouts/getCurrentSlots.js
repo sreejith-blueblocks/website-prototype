@@ -1,27 +1,41 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import CoverImage from "@/public/assets/games/BetGameCoverImage.png";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
+import { UserContext } from "@/contexts/UserContext";
 
-const GetCurrentSlots = () => {
+import CryptoJS from "crypto-js";
+
+const GetCurrentSlots = ({ gameId }) => {
   const router = useRouter();
   const [slots, setSlots] = useState([]);
   const [currentSlot, setCurrentSlot] = useState(null);
   const [upcomingSlots, setUpcomingSlots] = useState([]);
+  const { user, token } = useContext(UserContext);
+  const [gameDetails, setGameDetails] = useState(null);
+
+  const [wallet, setWallet] = useState(100);
+  const encryptionKey = "LrbRvi4BsGZMCsygsKdSLs043SPC8sgeSqu7L";
+  const additionalData = { gameId };
+
+  const encryptedData = CryptoJS.AES.encrypt(
+    JSON.stringify(additionalData),
+    encryptionKey
+  ).toString();
+  const encodedEncryptedData = encodeURIComponent(encryptedData);
 
   useEffect(() => {
     const fetchSlots = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BETGAME_BASE_URL}Bet`
-        ); // Replace with your actual API endpoint
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_BETGAME_BASE_URL}upcomingSlots`,
+          { gameId }
+        );
         setSlots(response.data.slots);
-        console.log("fetch test");
-        console.log("Fetched slots data");
       } catch (error) {
         console.error("Error fetching slot data:", error);
       }
@@ -29,27 +43,66 @@ const GetCurrentSlots = () => {
 
     fetchSlots();
 
-    // Set up an interval to refresh the slots data every 5 minutes
-    const fetchIntervalId = setInterval(fetchSlots, 300000); // 300000 ms = 5 minutes
-
-    // Cleanup intervals on component unmount
+    const fetchIntervalId = setInterval(fetchSlots, 300000);
     return () => {
       clearInterval(fetchIntervalId);
     };
   }, []);
 
   useEffect(() => {
+    const fetchWallet = async () => {
+      // console.log("user", user.userid);
+      try {
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_USER_BASE_URL}User/ViewBalance`,
+          {
+            userid: user.userid,
+            coin: "string",
+            quantity: 0,
+            price: 0,
+            stockId: 0,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const responseData = response.data?.balance;
+        setWallet(responseData || 0);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchWallet();
+
+    const fetchSlots = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_BETGAME_BASE_URL}single/game/${gameId}`,
+          { gameId }
+        );
+        if (response.status == 200) {
+          setGameDetails(response.data);
+          console.log(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching Game details:", error);
+      }
+    };
+
+    fetchSlots();
+  }, []);
+
+  useEffect(() => {}, []);
+
+  useEffect(() => {
     const checkSlots = () => {
       determineCurrentAndUpcomingSlots(slots);
     };
-
-    // Set up a more frequent interval to check and update the current and upcoming slots every 10 seconds
-    const checkIntervalId = setInterval(checkSlots, 1000); // 10000 ms = 10 seconds
-
-    // Perform an initial check
+    const checkIntervalId = setInterval(checkSlots, 1000);
     checkSlots();
-
-    // Cleanup interval on component unmount
     return () => {
       clearInterval(checkIntervalId);
     };
@@ -71,11 +124,8 @@ const GetCurrentSlots = () => {
     setCurrentSlot(current);
     setUpcomingSlots(upcoming);
   };
-  useEffect(() => {
-    // console.log();
-    console.log("trigger");
-  }, []);
 
+  // console.log(currentSlot?.slotId ? "true" : "false");
   return (
     <div>
       <div className="flex flex-row gap-2 items-center ">
@@ -98,43 +148,70 @@ const GetCurrentSlots = () => {
         </div>
 
         <div className=" flex-1  flex flex-col">
-          <h1 className="text-[20px] font-semibold">Current Slot</h1>
+          <h1 className="text-[20px] font-semibold">
+            {" "}
+            {`${gameDetails?.gameName || "Game"} Slots`}
+          </h1>
           <div className="w-full h-full">
             <div className="w-full flex flex-row gap-2">
               <button
                 onClick={() => {
-                  router.push(`betgame/slot/${currentSlot?.slotId}`);
+                  if (currentSlot?.slotId) {
+                    router.push(`${gameId}/${currentSlot.slotId}`);
+                  }
                 }}
-                className="bg-[#5067EB]   flex-1 rounded-xl text-[22px] font-bold text-white relative"
+                className={` ${
+                  currentSlot?.slotId
+                    ? "bg-[#5067EB] text-[22px]"
+                    : "bg-[#838383] text-[18px] cursor-not-allowed"
+                }    flex-1 rounded-xl  font-bold text-white relative`}
               >
-                Play
-                <div className=" flex flex-row items-center justify-between gap-1 absolute left-0 top-0 text-[8px] text-black p-[2px] px-2 rounded-lg bg-slate-200 m-2">
-                  <div className="bg-red-500 rounded-full w-[5px] h-[5px] animate-ping"></div>
-                  Live
-                </div>
+                {currentSlot?.slotId ? "Play" : "No Live Game"}
+                {currentSlot?.slotId ? (
+                  <div className=" flex flex-row items-center justify-between gap-1 absolute left-0 top-0 text-[8px] text-black p-[2px] px-2 rounded-lg bg-slate-200 m-2">
+                    <div className="bg-red-500 rounded-full w-[5px] h-[5px] animate-ping"></div>
+                    Live
+                  </div>
+                ) : (
+                  ""
+                )}
               </button>
               <div className="px-[8px] p-[8px] bg-slate-300 rounded-xl ">
                 <p className="text-[12px]">Wallet</p>
                 <div className="flex-1 w-[100px]  bg-slate-500 p-1 text-[14px] rounded-lg text-white">
-                  $10000.00
+                  ${wallet}
                 </div>
               </div>
             </div>
             <div className="py-2">
               <p className="text-[12px]">Upcoming Slots</p>
-              <div className="w-full flex flex-row justify-between flex-wrap  gap-2">
-                {upcomingSlots.map((item, index) => (
-                  <div
-                    key={index}
-                    className="cursor-pointer font-semibold hover:scale-105 w-[49%] h-[80px] rounded-xl bg-gray-300 text-center relative"
-                  >
-                    <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                      {item?.slotId}
-                    </p>
-                    <p>{item?.startTime}</p>
-                  </div>
-                ))}
-              </div>
+              {upcomingSlots.length !== 0 ? (
+                <div className="w-full flex flex-row justify-between flex-wrap  gap-2">
+                  {upcomingSlots.map((item, index) => (
+                    <div
+                      key={index}
+                      className="cursor-pointer font-semibold hover:scale-105 w-[49%] h-[80px] rounded-xl bg-gray-300 text-center relative"
+                    >
+                      <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        {item?.startTime}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="w-full flex flex-row justify-between flex-wrap  gap-2 animate-pulse">
+                  {[1].map((item, index) => (
+                    <div
+                      key={index}
+                      className="cursor-pointer font-semibold hover:scale-105 w-full h-[80px] rounded-xl bg-gray-300 text-center relative"
+                    >
+                      <p className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        Loading..
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
           <div>

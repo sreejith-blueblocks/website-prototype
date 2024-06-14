@@ -19,7 +19,7 @@ const Page = () => {
       // Calculate remaining time only if the current time is within open and closing times
       const timeDiff = closingTime - currentTime;
       setRemainingTime(timeDiff);
-      console.log(timeDiff);
+   
 
       // Start the interval to update remaining time every second
       const intervalId = setInterval(() => {

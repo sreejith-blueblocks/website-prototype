@@ -5,66 +5,14 @@ import styles from "./styles.module.scss";
 import { BsSearch } from "react-icons/bs";
 
 const Page = () => {
-  // const [graphData, setGraphData] = useState([]);
-
-  // // Function to generate graph data
-  // const generateGraphData = () => {
-  //   const initialAmount = 100; // Initial amount of money
-  //   const finalAmount = 1000; // Final amount of money
-  //   const timeFrame = 12 * 60 * 60 * 1000; // Time frame in milliseconds (12 hours)
-
-  //   const currentTime = Date.now(); // Get current time in milliseconds
-  //   const finalTime = currentTime + timeFrame; // Calculate final time
-
-  //   const data = [];
-
-  //   let currentAmount = initialAmount;
-  //   let currentTimeStamp = currentTime;
-
-  //   while (currentTimeStamp <= finalTime) {
-  //     if (currentTimeStamp <= currentTime) {
-  //       // If the current time stamp is before or equal to the current time, generate data point
-  //       data.push({
-  //         x: currentTimeStamp,
-  //         y: currentAmount,
-  //       });
-  //     } else {
-  //       // If the current time stamp is after the current time, generate data point with final value
-  //       data.push({
-  //         x: currentTimeStamp,
-  //         y: finalAmount,
-  //       });
-  //     }
-
-  //     // Increment current time by 1 second
-  //     currentTimeStamp += 1000; // Adding 1000 milliseconds (1 second)
-
-  //     // Calculate new amount based on linear interpolation until the final time
-  //     if (currentTimeStamp < finalTime) {
-  //       const timeElapsed = currentTimeStamp - currentTime;
-  //       const totalTime = finalTime - currentTime;
-  //       currentAmount =
-  //         initialAmount +
-  //         (finalAmount - initialAmount) * (timeElapsed / totalTime);
-  //     }
-  //   }
-
-  //   console.log(data); // Log the generated graph data to console
-
-  //   setGraphData(data); // Set the graph data state
-  // };
-
-  // useEffect(() => {
-  //   generateGraphData();
-  // }, []);
-
+ 
   const [startTime, setStartTime] = useState("");
   const [endTime, setEndTime] = useState("");
   const [showTimer, setShowTimer] = useState(false);
   const [timeDifference, setTimeDifference] = useState(null);
   const [counter, setCounter] = useState(null);
   const timerRef = useRef(null);
-  console.log(timeDifference);
+
 
   const calculateTimeDifference = (start, end) => {
     const startParts = start.split(":");
