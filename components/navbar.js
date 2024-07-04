@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import logo from "@/public/assets/bb_logo.png";
 import Link from "next/link";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -29,7 +30,7 @@ const Navbar = () => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -30 }}
       transition={{ duration: 0.1 }}
-      className={`py-4 max-w-[1600px] px-20 w-full fixed top-0 z-[9999] transition-all duration-300 ${
+      className={`py-4 max-w-[1600px] px-[30px] lg:px-20 w-full fixed top-0 z-[9999] transition-all duration-300 ${
         scrolled ? "bg-gray-800" : "bg-transparent text"
       }`}
     >
@@ -42,33 +43,36 @@ const Navbar = () => {
             width={384}
           ></Image>
         </span>
-        <ul className="flex space-x-16 text-white font-medium">
+        <ul className="lg:flex space-x-2 lg:space-x-16 text-white font-medium hidden">
           <li>
-            <a href="#" className="hover:text-gray-300">
+            <a href="#" className="hover:text-gray-300 text-[16px]">
               About Us
             </a>
           </li>
           <li>
-            <a href="#" className="hover:text-gray-300">
+            <a href="#" className="hover:text-gray-300 text-[16px]">
               Services
             </a>
           </li>
           <li>
-            <a href="#" className="hover:text-gray-300">
+            <a href="#" className="hover:text-gray-300 text-[16px]">
               Industries
             </a>
           </li>
           <li>
-            <a href="#" className="hover:text-gray-300">
+            <a href="#" className="hover:text-gray-300 text-[16px]">
               Contact Us
             </a>
           </li>
           <li>
-            <Link href="/admin" className="hover:text-gray-300">
+            <Link href="/admin" className="hover:text-gray-300 text-[16px]">
               Dashboard
             </Link>
           </li>
         </ul>
+        <div>
+          <GiHamburgerMenu className="text-[40px] text-white" />
+        </div>
       </div>
     </motion.nav>
   );

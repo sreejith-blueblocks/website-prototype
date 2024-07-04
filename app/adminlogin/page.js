@@ -114,7 +114,7 @@ export default function LoginPage() {
         const payload = await parseJwt(otpResponse.data.jwtToken);
         setIsLoggedIn(true);
         setUser(payload);
-        setShowOtpModal(false);
+
         router.push("/admin");
       } else {
         setError("Invalid OTP");

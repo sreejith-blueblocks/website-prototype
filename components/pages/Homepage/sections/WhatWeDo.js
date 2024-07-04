@@ -43,7 +43,7 @@ function WhatWeDo() {
   }, []);
 
   return (
-    <div className="overflow-hidden flex flex-col bg-[#243E86]">
+    <div className="overflow-hidden  flex-col bg-[#243E86] hidden lg:flex">
       <div className="overflow-hidden ">
         <div
           id="skills"
@@ -61,11 +61,11 @@ function WhatWeDo() {
                 exit={{ opacity: 0 }}
                 className="relative  h-[250px]  w-full"
               >
-                <h1 className=" absolute left-0 bottom-0 text-white  z-[500] leading-tight text-[128px] font-[900]">
+                <h1 className=" absolute left-0 bottom-0 text-white  z-[500] leading-tight text-[25px] lg:text-[128px] font-[900]">
                   Design
                 </h1>
                 <h1
-                  className={`absolute select-none text-[300px] left-0 -bottom-5 z-[499] leading-tight h-full   ${styles.gradientText}`}
+                  className={`absolute select-none hidden lg:block left-0 -bottom-5 z-[499] leading-tight h-full   ${styles.gradientText}`}
                 >
                   Design
                 </h1>
@@ -86,7 +86,7 @@ function WhatWeDo() {
                 src={design}
                 width={2368}
                 height={2008}
-                className="max-w-[550px] h-auto"
+                className=" max-w-[200px] lg:max-w-[550px] h-auto"
               ></Image>
             </div>
           </section>
@@ -108,7 +108,7 @@ function WhatWeDo() {
                   Develop
                 </h1>
                 <h1
-                  className={`absolute select-none text-[300px] right-0 -bottom-5 z-[499] leading-tight h-full   ${styles.gradientText}`}
+                  className={`absolute select-none hidden lg:block text-[300px] right-0 -bottom-5 z-[499] leading-tight h-full   ${styles.gradientText}`}
                 >
                   Develop
                 </h1>
@@ -133,7 +133,7 @@ function WhatWeDo() {
                   Market
                 </h1>
                 <h1
-                  className={`absolute select-none text-[300px] left-0 -bottom-10 z-[499] leading-tight h-full   ${styles.gradientText}`}
+                  className={`absolute select-none hidden lg:block text-[300px] left-0 -bottom-10 z-[499] leading-tight h-full   ${styles.gradientText}`}
                 >
                   Market
                 </h1>

@@ -27,7 +27,9 @@ const PopularGamesCard = () => {
           View all
         </Link>
       </header>
-      <div className=" py-2 flex flex-row justify-between">
+      <div
+        className={`py-2 grid grid-cols-4 sm:grid-cols-2 md:grid-cols-6 lg:grid-cols-7 gap-5`}
+      >
         {gamesArray.map((game, index) => (
           <div
             key={index}

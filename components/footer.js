@@ -10,7 +10,7 @@ import {
 
 const FooterSection = () => {
   return (
-    <footer className=" w-full py-6 pt-[60px] text-gray-300 bg-[#243E86] px-20 max-w-[1600px]">
+    <footer className=" w-full py-6 pt-[60px] text-gray-300 bg-[#243E86] px-[30px]  lg:px-20 max-w-[1600px]">
       <div className="flex flex-row gap-x-5 justify-between">
         <div>
           <Image
@@ -20,51 +20,59 @@ const FooterSection = () => {
             width={384}
           ></Image>
           <div className="mt-2">
-            <p className="text-[16px] leading-[24px] font-medium">
+            <p className="text-[14px] lg:text-[16px] leading-[24px] font-medium">
               41/2097-A8, Second Floor,
               <br /> Chakkalakkal Arcade, Palarivattom Pipeline,
               <br /> NH47, Ernamkulam, Kerala - 682025
             </p>
           </div>
         </div>
-        <div className=" flex flex-row gap-x-[68px]">
+        <div className=" flex flex-col lg:flex-row gap-y-5 lg:gap-y-0 gap-x-[68px]">
           <div>
             <h2 className="text-[18px] font-bold">Quick Link</h2>
             <ul className="mt-[5px] ">
-              <li className="text-[16px] my-[2px] leading-[24.8px] font-medium">
+              <li className="text-[14px] lg:text-[16px] my-[2px] leading-[24.8px] font-medium">
                 Home
               </li>
-              <li className="text-[16px] my-[2px] font-medium">About Us</li>
-              <li className="text-[16px] my-[2px] font-medium">Industries</li>
-              <li className="text-[16px] my-[2px] font-medium">Careers</li>
-              <li className="text-[16px] my-[2px] font-medium">Contact Us</li>
+              <li className="text-[14px] lg:text-[16px] my-[2px] font-medium">
+                About Us
+              </li>
+              <li className="text-[14px] lg:text-[16px] my-[2px] font-medium">
+                Industries
+              </li>
+              <li className="text-[14px] lg:text-[16px] my-[2px] font-medium">
+                Careers
+              </li>
+              <li className="text-[14px] lg:text-[16px] my-[2px] font-medium">
+                Contact Us
+              </li>
             </ul>
           </div>
 
-          <div className="max-w-[300px] flex-1">
+          <div className="max-w-[265px] lg:max-w-[300px] flex-1">
             <h2 className="text-[18px] font-bold">Connect</h2>
             <ul className="justify-between mt-[5px]">
-              <li className="my-[2px] flex flex-row justify-between gap-x-2 text-[16px] font-medium">
+              <li className=" my-0 lg:my-[2px] flex flex-row justify-between gap-x-2 text-[14px] lg:text-[16px] font-medium">
                 <p className="w-[138px]">General Enquiry</p>
                 <span>:</span>
                 <span className="w-[148px]">+91 9876543210</span>
               </li>
-              <li className="my-[2px] flex flex-row justify-between gap-x-2 text-[16px] font-medium">
+              <li className="my-[2px] flex flex-row justify-between gap-x-2 text-[14px] lg:text-[16px] font-medium">
                 <p className="w-[138px]">Office Enquiry</p>
                 <span>:</span>
                 <span className="w-[148px]">+91 9876543210</span>
               </li>
-              <li className="my-[2px] flex flex-row justify-between gap-x-2 text-[16px] font-medium">
+              <li className="my-[2px] flex flex-row justify-between gap-x-2 text-[14px] lg:text-[16px] font-medium">
                 <p className="w-[138px]">Email</p>
                 <span>:</span>
                 <span className="w-[148px]">info@blueblocks.net</span>
               </li>
-              <li className="my-[2px] flex flex-row justify-between gap-x-2 text-[16px] font-medium">
+              <li className="my-[2px] flex flex-row justify-between gap-x-2 text-[14px] lg:text-[16px] font-medium">
                 <p className="w-[138px]">HR Enquiry</p>
                 <span>:</span>
                 <span className="w-[148px]">+91 9876543210</span>
               </li>
-              <li className="my-[2px] flex flex-row justify-between gap-x-2 text-[16px] font-medium">
+              <li className="my-[2px] flex flex-row justify-between gap-x-2 text-[14px] lg:text-[16px] font-medium">
                 <p className="w-[138px]">WhatsApp</p>
                 <span>:</span>
                 <span className="w-[148px]">+91 9876543210</span>
@@ -74,7 +82,7 @@ const FooterSection = () => {
         </div>
       </div>
       <div className="flex flex-row justify-between mt-12">
-        <div className="flex gap-x-32 flex-row items-center justify-between">
+        <div className="flex lg:gap-x-32 flex-col lg:flex-row items-start lg:items-center justify-between text-[8px] gap-x-3 lg:text-[14px]">
           <p>BLUE BLOCKS © 2024 All rights reserved</p>
           <p>Privacy Policy | Terms & Conditions</p>
         </div>

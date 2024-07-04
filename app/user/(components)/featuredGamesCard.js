@@ -14,16 +14,6 @@ import axios from "axios";
 const FeaturedGamesCard = () => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
-  const gamesArray = [
-    { id: 1, imageUrl: horseBetting, name: "Object 1", link: "betgame" },
-    { id: 2, imageUrl: logo2, name: "Object 2", link: "newGraphLogic" },
-    { id: 3, imageUrl: logo3, name: "Object 3", link: "dsf" },
-    { id: 4, imageUrl: logo4, name: "Object 4", link: "dsf" },
-    { id: 5, imageUrl: logo5, name: "Object 5", link: "dsf" },
-    { id: 6, imageUrl: logo6, name: "Object 6", link: "dsf" },
-    { id: 7, imageUrl: logo3, name: "Object 7", link: "dsf" },
-    { id: 8, imageUrl: logo4, name: "Object 8", link: "dsf" },
-  ];
 
   useEffect(() => {
     const fetchData = async () => {

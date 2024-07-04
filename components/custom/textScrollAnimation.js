@@ -14,7 +14,7 @@ const TextScrollAnimation = ({ paragraph }) => {
   return (
     <p
       ref={container}
-      className="flex text-[28px] font-bold leading-[1] p-[40px] max-w-[1280px] text-[#070707] flex-wrap "
+      className="flex text-[16px] lg:text-[28px] text-justify lg:text-center font-bold leading-[1] p-[40px] max-w-[1280px] text-[#070707] flex-wrap "
     >
       {words.map((word, i) => {
         const start = i / words.length;
@@ -24,7 +24,7 @@ const TextScrollAnimation = ({ paragraph }) => {
             key={i}
             progress={scrollYProgress}
             range={[start, end]}
-            className="relative mr-[12px] mt-[12px]"
+            className="relative mr-[12px] mt-[12px] "
           >
             {word}
           </Word>

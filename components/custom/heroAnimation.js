@@ -8,7 +8,7 @@ import layer4 from "@/public/assets/Up.png";
 
 const HeroAnimation = () => {
   return (
-    <div className="h-[580px]  pt-16 bg-[#243E86] relative">
+    <div className="h-[580px]  pt-16 bg-[#243E86] relative ">
       <motion.div
         initial={{ x: 0 }} // Initial opacity and x position
         animate={{
@@ -20,7 +20,7 @@ const HeroAnimation = () => {
           type: "spring",
           ease: "backInOut",
         }} // Fade in animation duration
-        className="left-animation w-[300px] h-[200px]  absolute left-[160px] top-[200px] select-none"
+        className="left-animation w-[300px] h-[200px]  absolute left-[160px] top-[200px] select-none hidden lg:block"
       >
         <motion.div
           initial={{ opacity: 0, x: 0 }} // Initial opacity and x position
@@ -28,7 +28,7 @@ const HeroAnimation = () => {
             opacity: 1,
           }}
           transition={{ duration: 2 }} // Fade in animation duration
-          className="left-animation w-[300px] h-[200px]  "
+          className="left-animation w-[300px] h-[200px] "
         >
           <Image
             alt=""
@@ -51,7 +51,7 @@ const HeroAnimation = () => {
           type: "spring",
           ease: "backInOut",
         }}
-        className="w-[300px] h-[200px]  absolute right-[300px] top-[240px] select-none"
+        className="w-[300px] h-[200px]  absolute right-[300px] top-[240px] select-none hidden lg:block"
       >
         <motion.div
           initial={{ opacity: 0, x: 0 }} // Initial opacity and x position
@@ -83,7 +83,7 @@ const HeroAnimation = () => {
           type: "spring",
           ease: "backInOut",
         }}
-        className="w-[300px] h-[200px]  absolute top-[25px]  right-[50%] transform translate-x-[40%] select-none"
+        className="w-[300px] h-[200px] hidden lg:block  absolute top-[25px]  right-[50%] transform translate-x-[40%] select-none"
       >
         <motion.div
           initial={{ opacity: 0, x: 0 }}
@@ -114,7 +114,7 @@ const HeroAnimation = () => {
           type: "spring",
           ease: "backInOut",
         }}
-        className="w-[300px] h-[200px]  absolute bottom-[28px]  right-[66%] transform translate-x-[40%] select-none"
+        className="w-[300px] h-[200px] hidden lg:block  absolute bottom-[28px]  right-[66%] transform translate-x-[40%] select-none"
       >
         <motion.div
           initial={{ opacity: 0 }} // Initial opacity and x position
@@ -131,6 +131,19 @@ const HeroAnimation = () => {
             height={1369}
           ></Image>
         </motion.div>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, fontSize: "0.5rem" }}
+        animate={{ opacity: 1, fontSize: "3rem" }}
+        transition={{
+          delay: 3,
+          duration: 0.4,
+          type: "spring",
+          ease: "backInOut",
+        }}
+        className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2"
+      >
+        <h1 className="font-bold text-white">Banner Content</h1>
       </motion.div>
     </div>
   );
